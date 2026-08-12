@@ -1,6 +1,6 @@
-## Sobre smail.pw (Correo temporal)
+## Sobre cleanorapi.com (Correo temporal)
 
-smail.pw es un servicio de **correo temporal** para registros de bajo riesgo, códigos OTP y verificaciones rápidas.
+cleanorapi.com es un servicio de **correo temporal** para registros de bajo riesgo, códigos OTP y verificaciones rápidas.
 
 ### Para qué sirve
 

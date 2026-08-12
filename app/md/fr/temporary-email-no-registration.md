@@ -1,6 +1,6 @@
 ## Email temporaire sans inscription
 
-Avec smail.pw, recevez des emails sans créer de compte ni mot de passe.
+Avec cleanorapi.com, recevez des emails sans créer de compte ni mot de passe.
 
 ### Cas fréquents
 

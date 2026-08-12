@@ -1,6 +1,6 @@
-## Über smail.pw (Temporäre E-Mail)
+## Über cleanorapi.com (Temporäre E-Mail)
 
-smail.pw ist ein Dienst für **temporäre E-Mail** bei risikoarmen Registrierungen, OTP-Codes und einmaligen Verifizierungen.
+cleanorapi.com ist ein Dienst für **temporäre E-Mail** bei risikoarmen Registrierungen, OTP-Codes und einmaligen Verifizierungen.
 
 ### Wofür es gedacht ist
 

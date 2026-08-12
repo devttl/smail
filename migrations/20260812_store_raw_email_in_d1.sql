@@ -1,0 +1,2 @@
+ALTER TABLE emails ADD COLUMN raw TEXT;
+ALTER TABLE emails ADD COLUMN raw_blob BLOB;

@@ -28,6 +28,14 @@ export type BlogPostMeta = {
 const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	en: [
 		{
+			slug: "direct-email-inbox-link",
+			title: "Open a Temporary Inbox Directly with an Email Address Link",
+			description:
+				"Learn how cleanorapi.com direct inbox links work, when to use them, and the privacy limits of passwordless temporary mailboxes.",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
+		{
 			slug: "temporary-email-best-practices",
 			title: "Temporary Email Best Practices for Safer Sign-Ups",
 			description:
@@ -53,6 +61,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	zh: [
+		{
+			slug: "direct-email-inbox-link",
+			title: "用邮箱地址链接直接打开临时收件箱",
+			description:
+				"了解如何通过 cleanorapi.com 邮箱地址直达收件箱、适用场景、24 小时会话以及无密码访问的隐私边界。",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
 		{
 			slug: "temporary-email-best-practices",
 			title: "临时邮箱最佳实践：更安全地完成注册",
@@ -80,6 +96,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	es: [
 		{
+			slug: "direct-email-inbox-link",
+			title: "Abre un buzón temporal directamente con un enlace de email",
+			description:
+				"Descubre cómo funcionan los enlaces directos de cleanorapi.com, cuándo usarlos y los límites de privacidad de un buzón sin contraseña.",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
+		{
 			slug: "temporary-email-best-practices",
 			title: "Buenas prácticas de correo temporal para registros más seguros",
 			description:
@@ -105,6 +129,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	fr: [
+		{
+			slug: "direct-email-inbox-link",
+			title: "Ouvrir directement une boîte temporaire avec un lien email",
+			description:
+				"Découvrez les liens directs cleanorapi.com, leurs usages et les limites de confidentialité d'une boîte temporaire sans mot de passe.",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
 		{
 			slug: "temporary-email-best-practices",
 			title:
@@ -133,6 +165,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	de: [
 		{
+			slug: "direct-email-inbox-link",
+			title: "Ein temporäres Postfach direkt per E-Mail-Link öffnen",
+			description:
+				"So funktionieren direkte cleanorapi.com-Postfachlinks – mit passenden Einsatzfällen und den Datenschutzgrenzen eines Postfachs ohne Passwort.",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
+		{
 			slug: "temporary-email-best-practices",
 			title:
 				"Best Practices für temporäre E-Mails bei sicheren Registrierungen",
@@ -160,6 +200,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ja: [
 		{
+			slug: "direct-email-inbox-link",
+			title: "メールアドレスのリンクから一時受信箱を直接開く方法",
+			description:
+				"cleanorapi.com の受信箱直リンクの使い方、適した場面、24時間セッション、パスワードなしで利用する際の注意点を解説します。",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
+		{
 			slug: "temporary-email-best-practices",
 			title: "安全な登録のための一時メール運用ベストプラクティス",
 			description:
@@ -185,6 +233,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ko: [
+		{
+			slug: "direct-email-inbox-link",
+			title: "이메일 주소 링크로 임시 받은편지함 바로 열기",
+			description:
+				"cleanorapi.com 받은편지함 바로가기 링크의 사용법과 활용 사례, 24시간 세션, 비밀번호 없는 접근의 개인정보 한계를 알아보세요.",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
 		{
 			slug: "temporary-email-best-practices",
 			title: "더 안전한 가입을 위한 임시 이메일 모범 사례",
@@ -212,6 +268,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ru: [
 		{
+			slug: "direct-email-inbox-link",
+			title: "Как открыть временный ящик по прямой ссылке с адресом",
+			description:
+				"Как работают прямые ссылки cleanorapi.com, когда они полезны и какие ограничения приватности есть у временного ящика без пароля.",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
+		{
 			slug: "temporary-email-best-practices",
 			title: "Лучшие практики временной почты для более безопасных регистраций",
 			description:
@@ -238,6 +302,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	pt: [
 		{
+			slug: "direct-email-inbox-link",
+			title: "Abra uma caixa temporária diretamente por um link de email",
+			description:
+				"Entenda os links diretos do cleanorapi.com, quando usá-los e os limites de privacidade de uma caixa temporária sem senha.",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
+		{
 			slug: "temporary-email-best-practices",
 			title: "Boas práticas de email temporário para cadastros mais seguros",
 			description:
@@ -263,6 +335,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ar: [
+		{
+			slug: "direct-email-inbox-link",
+			title: "فتح صندوق بريد مؤقت مباشرة عبر رابط عنوان البريد",
+			description:
+				"تعرّف على روابط صندوق cleanorapi.com المباشرة، ومتى تستخدمها، وحدود الخصوصية في صندوق مؤقت بلا كلمة مرور.",
+			publishedAt: "2026-08-12",
+			readingMinutes: 4,
+		},
 		{
 			slug: "temporary-email-best-practices",
 			title: "أفضل ممارسات البريد المؤقت لتسجيلات أكثر أمانًا",

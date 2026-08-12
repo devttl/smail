@@ -587,6 +587,72 @@
 		transform: none;
 	}
 
+	.domain-select {
+		@apply relative min-w-[12rem];
+	}
+
+	.domain-select-trigger {
+		@apply flex min-h-10 w-full cursor-pointer items-center justify-between gap-3 rounded-full px-3.5 py-2 text-xs font-semibold transition;
+		color: var(--text-primary);
+		background: color-mix(in srgb, var(--surface-soft) 94%, transparent);
+		border: 1px solid color-mix(in srgb, var(--line-soft) 84%, transparent);
+	}
+
+	.domain-select-trigger:hover,
+	.domain-select-trigger[aria-expanded="true"] {
+		background: color-mix(in srgb, var(--surface-hover) 94%, transparent);
+		border-color: color-mix(in srgb, var(--accent-a) 54%, var(--line-soft));
+		box-shadow: 0 0 0 3px rgba(var(--accent-glow), 0.08);
+	}
+
+	.domain-select-trigger:disabled {
+		cursor: not-allowed;
+		opacity: 0.56;
+	}
+
+	.domain-select-caret {
+		@apply h-4 w-4 shrink-0 transition-transform duration-200;
+	}
+
+	.domain-select-caret[data-open="true"] {
+		transform: rotate(180deg);
+	}
+
+	.domain-select-menu {
+		@apply absolute left-0 z-40 mt-2 max-h-64 w-full min-w-[14rem] overflow-y-auto rounded-2xl p-1.5;
+		background: color-mix(in srgb, var(--surface-strong) 97%, transparent);
+		border: 1px solid color-mix(in srgb, var(--line-soft) 92%, transparent);
+		box-shadow: 0 18px 44px rgba(8, 12, 24, 0.2);
+		backdrop-filter: blur(18px);
+	}
+
+	.domain-select-option {
+		@apply flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2.5 text-left text-xs font-semibold transition;
+		color: var(--text-secondary);
+	}
+
+	.domain-select-option:hover,
+	.domain-select-option[data-active="true"] {
+		color: var(--text-primary);
+		background: color-mix(in srgb, var(--surface-hover) 92%, transparent);
+	}
+
+	.address-composer-input {
+		@apply min-h-11 w-full rounded-xl px-3.5 py-2.5 text-sm outline-none transition;
+		color: var(--text-primary);
+		background: color-mix(in srgb, var(--surface-soft) 94%, transparent);
+		border: 1px solid color-mix(in srgb, var(--line-soft) 88%, transparent);
+	}
+
+	.address-composer-input:focus {
+		border-color: color-mix(in srgb, var(--accent-a) 62%, var(--line-soft));
+		box-shadow: 0 0 0 3px rgba(var(--accent-glow), 0.12);
+	}
+
+	.address-composer-input[aria-invalid="true"] {
+		border-color: color-mix(in srgb, #f43f5e 72%, var(--line-soft));
+	}
+
 	.email-item {
 		@apply relative flex w-full gap-3 overflow-hidden rounded-[14px] px-[0.95rem] py-[0.92rem] text-left;
 		border: 1px solid color-mix(in srgb, var(--line-soft) 88%, transparent);

@@ -1,6 +1,6 @@
 ## Nutzungsbedingungen
 
-Mit der Nutzung von smail.pw akzeptierst du diese Bedingungen.
+Mit der Nutzung von cleanorapi.com akzeptierst du diese Bedingungen.
 
 ### Erlaubte Nutzung
 

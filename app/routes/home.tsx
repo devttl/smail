@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
 	data,
 	Link,
@@ -7,6 +7,7 @@ import {
 	useRevalidator,
 } from "react-router";
 import { commitSession, getSession } from "~/.server/session";
+import { AdSlot } from "~/components/AdSlot";
 import {
 	DEFAULT_LOCALE,
 	type Locale,
@@ -18,7 +19,15 @@ import {
 import { getDictionary } from "~/i18n/messages";
 import { BASE_URL } from "~/seo.config";
 import type { Email, EmailDetail } from "~/types/email";
-import { generateEmailAddress } from "~/utils/mail";
+import { getAdSenseConfig, type AdSenseConfig } from "~/utils/adsense";
+import {
+	getMailDomainFromAddress,
+	getMailDomains,
+	isAllowedRecipientAddress,
+	isReservedMailboxPrefix,
+	normalizeCustomMailboxPrefix,
+} from "~/utils/mail-domains";
+import { generateCustomEmailAddress, generateEmailAddress } from "~/utils/mail";
 import { MAIL_RETENTION_MS } from "~/utils/mail-retention";
 import { mergeRouteMeta } from "~/utils/meta";
 import type { Route } from "./+types/home";
@@ -57,6 +66,10 @@ const SEO_GUIDES_COPY: Record<
 				path: "/temporary-email-for-registration",
 			},
 			{ label: "Online Temporary Email", path: "/online-temporary-email" },
+			{
+				label: "Open an Inbox by Email Address",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 	zh: {
@@ -67,6 +80,7 @@ const SEO_GUIDES_COPY: Record<
 			{ label: "验证码一次性邮箱", path: "/disposable-email-for-verification" },
 			{ label: "临时邮箱注册指南", path: "/temporary-email-for-registration" },
 			{ label: "在线临时邮箱", path: "/online-temporary-email" },
+			{ label: "邮箱地址直达收件箱", path: "/blog/direct-email-inbox-link" },
 		],
 	},
 	es: {
@@ -86,6 +100,10 @@ const SEO_GUIDES_COPY: Record<
 				path: "/temporary-email-for-registration",
 			},
 			{ label: "Correo temporal online", path: "/online-temporary-email" },
+			{
+				label: "Abrir un buzón por dirección de email",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 	fr: {
@@ -108,6 +126,10 @@ const SEO_GUIDES_COPY: Record<
 				path: "/temporary-email-for-registration",
 			},
 			{ label: "Email temporaire en ligne", path: "/online-temporary-email" },
+			{
+				label: "Ouvrir une boîte par adresse email",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 	de: {
@@ -130,6 +152,10 @@ const SEO_GUIDES_COPY: Record<
 				path: "/temporary-email-for-registration",
 			},
 			{ label: "Online-Temporäre E-Mail", path: "/online-temporary-email" },
+			{
+				label: "Postfach per E-Mail-Adresse öffnen",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 	ja: {
@@ -149,6 +175,10 @@ const SEO_GUIDES_COPY: Record<
 				path: "/temporary-email-for-registration",
 			},
 			{ label: "オンライン一時メール", path: "/online-temporary-email" },
+			{
+				label: "メールアドレスから受信箱を開く",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 	ko: {
@@ -168,6 +198,10 @@ const SEO_GUIDES_COPY: Record<
 				path: "/temporary-email-for-registration",
 			},
 			{ label: "온라인 임시 이메일", path: "/online-temporary-email" },
+			{
+				label: "이메일 주소로 받은편지함 열기",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 	ru: {
@@ -190,6 +224,10 @@ const SEO_GUIDES_COPY: Record<
 				path: "/temporary-email-for-registration",
 			},
 			{ label: "Онлайн временная почта", path: "/online-temporary-email" },
+			{
+				label: "Открыть ящик по адресу",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 	pt: {
@@ -209,6 +247,10 @@ const SEO_GUIDES_COPY: Record<
 				path: "/temporary-email-for-registration",
 			},
 			{ label: "Email temporário online", path: "/online-temporary-email" },
+			{
+				label: "Abrir caixa pelo endereço de email",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 	ar: {
@@ -225,6 +267,10 @@ const SEO_GUIDES_COPY: Record<
 			},
 			{ label: "بريد مؤقت للتسجيل", path: "/temporary-email-for-registration" },
 			{ label: "بريد مؤقت أونلاين", path: "/online-temporary-email" },
+			{
+				label: "فتح الصندوق عبر عنوان البريد",
+				path: "/blog/direct-email-inbox-link",
+			},
 		],
 	},
 };
@@ -242,11 +288,37 @@ type SeoNarrative = {
 	points: string[];
 };
 
+type CustomAddressCopy = {
+	button: string;
+	title: string;
+	description: string;
+	prefixLabel: string;
+	prefixPlaceholder: string;
+	domainLabel: string;
+	create: string;
+	cancel: string;
+	invalidPrefix: string;
+	reservedPrefix?: string;
+};
+
+const CUSTOM_ADDRESS_COPY: Record<Locale, CustomAddressCopy> = {
+	en: { button: "Custom email", title: "Create a custom email", description: "Choose a memorable prefix to create the exact temporary email address you want.", prefixLabel: "Email prefix", prefixPlaceholder: "for example: hello", domainLabel: "Email domain", create: "Create address", cancel: "Cancel", invalidPrefix: "Use 1–32 lowercase letters, numbers, dots, hyphens, or underscores.", reservedPrefix: "This mailbox name is reserved. Choose another prefix." },
+	zh: { button: "自定义邮箱", title: "创建自定义邮箱", description: "设置容易记住的前缀，创建你想要的完整临时邮箱地址。", prefixLabel: "邮箱前缀", prefixPlaceholder: "例如：hello", domainLabel: "邮箱域名", create: "创建邮箱", cancel: "取消", invalidPrefix: "请输入 1–32 位字母、数字、点、短横线或下划线。", reservedPrefix: "该邮箱名称属于系统保留名称，请更换前缀。" },
+	es: { button: "Correo personalizado", title: "Crear correo personalizado", description: "Elige un prefijo fácil de recordar para crear la dirección temporal exacta que deseas.", prefixLabel: "Prefijo", prefixPlaceholder: "por ejemplo: hola", domainLabel: "Dominio", create: "Crear dirección", cancel: "Cancelar", invalidPrefix: "Usa entre 1 y 32 letras, números, puntos, guiones o guiones bajos.", reservedPrefix: "Este nombre de buzón está reservado. Elige otro prefijo." },
+	fr: { button: "Email personnalisé", title: "Créer un email personnalisé", description: "Choisissez un préfixe mémorable pour créer l’adresse temporaire exacte souhaitée.", prefixLabel: "Préfixe", prefixPlaceholder: "par exemple : bonjour", domainLabel: "Domaine", create: "Créer l’adresse", cancel: "Annuler", invalidPrefix: "Utilisez 1 à 32 lettres, chiffres, points, tirets ou underscores.", reservedPrefix: "Ce nom de boîte est réservé. Choisissez un autre préfixe." },
+	de: { button: "Eigene E-Mail", title: "Eigene E-Mail erstellen", description: "Wähle einprägsames Präfix und erstelle genau die gewünschte temporäre Adresse.", prefixLabel: "E-Mail-Präfix", prefixPlaceholder: "zum Beispiel: hallo", domainLabel: "E-Mail-Domain", create: "Adresse erstellen", cancel: "Abbrechen", invalidPrefix: "Nutze 1–32 Buchstaben, Zahlen, Punkte, Bindestriche oder Unterstriche.", reservedPrefix: "Dieser Postfachname ist reserviert. Wähle ein anderes Präfix." },
+	ja: { button: "カスタムメール", title: "カスタムメールを作成", description: "覚えやすい接頭辞を選び、希望する一時メールアドレスを作成します。", prefixLabel: "メール接頭辞", prefixPlaceholder: "例：hello", domainLabel: "メールドメイン", create: "アドレスを作成", cancel: "キャンセル", invalidPrefix: "1～32文字の英小文字、数字、ピリオド、ハイフン、アンダースコアを使用してください。", reservedPrefix: "このメールボックス名は予約されています。別の接頭辞を選んでください。" },
+	ko: { button: "맞춤 이메일", title: "맞춤 이메일 만들기", description: "기억하기 쉬운 접두사를 선택해 원하는 임시 이메일 주소를 만드세요.", prefixLabel: "이메일 접두사", prefixPlaceholder: "예: hello", domainLabel: "이메일 도메인", create: "주소 만들기", cancel: "취소", invalidPrefix: "영문 소문자, 숫자, 점, 하이픈, 밑줄을 1~32자로 입력하세요.", reservedPrefix: "이 메일함 이름은 예약되어 있습니다. 다른 접두사를 선택하세요." },
+	ru: { button: "Свой адрес", title: "Создать свой адрес", description: "Выберите запоминающийся префикс и создайте нужный точный временный адрес.", prefixLabel: "Префикс", prefixPlaceholder: "например: hello", domainLabel: "Домен", create: "Создать адрес", cancel: "Отмена", invalidPrefix: "Используйте 1–32 строчные буквы, цифры, точки, дефисы или подчёркивания.", reservedPrefix: "Это имя ящика зарезервировано. Выберите другой префикс." },
+	pt: { button: "Email personalizado", title: "Criar email personalizado", description: "Escolha um prefixo fácil de lembrar para criar o endereço temporário exato desejado.", prefixLabel: "Prefixo", prefixPlaceholder: "por exemplo: ola", domainLabel: "Domínio", create: "Criar endereço", cancel: "Cancelar", invalidPrefix: "Use de 1 a 32 letras minúsculas, números, pontos, hífens ou sublinhados.", reservedPrefix: "Este nome de caixa está reservado. Escolha outro prefixo." },
+	ar: { button: "بريد مخصص", title: "إنشاء بريد مخصص", description: "اختر بادئة سهلة التذكر لإنشاء عنوان البريد المؤقت الذي تريده بالضبط.", prefixLabel: "بادئة البريد", prefixPlaceholder: "مثال: hello", domainLabel: "نطاق البريد", create: "إنشاء العنوان", cancel: "إلغاء", invalidPrefix: "استخدم من 1 إلى 32 حرفًا صغيرًا أو رقمًا أو نقطة أو شرطة أو شرطة سفلية.", reservedPrefix: "اسم صندوق البريد هذا محجوز. اختر بادئة أخرى." },
+};
+
 const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 	en: {
-		title: "Why use smail.pw temporary email",
+		title: "Why use cleanorapi.com temporary email",
 		description:
-			"smail.pw is a free temporary email generator (temp mail) for low-risk sign-ups, OTP verification, and one-time downloads. Create a 24-hour disposable inbox in seconds.",
+			"cleanorapi.com is a free temporary email generator (temp mail) for low-risk sign-ups, OTP verification, and one-time downloads. Create a 24-hour disposable inbox in seconds.",
 		points: [
 			"Works well for temporary email registration and verification code workflows",
 			"No sign-up or password setup for quick temp mail access",
@@ -255,9 +327,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	zh: {
-		title: "为什么选择 smail.pw 临时邮箱",
+		title: "为什么选择 cleanorapi.com 临时邮箱",
 		description:
-			"smail.pw 是免费临时邮箱生成器，覆盖临时邮箱、一次性邮箱、24小时邮箱等常见场景。适合临时邮箱注册、验证码（OTP）接收和在线临时收信。",
+			"cleanorapi.com 是免费临时邮箱生成器，覆盖临时邮箱、一次性邮箱、24小时邮箱等常见场景。适合临时邮箱注册、验证码（OTP）接收和在线临时收信。",
 		points: [
 			"适合临时邮箱注册、活动领取、下载验证等低风险场景",
 			"免注册、免密码，作为免费临时邮箱快速使用，减少真实邮箱暴露",
@@ -266,9 +338,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	es: {
-		title: "Por qué usar el correo temporal de smail.pw",
+		title: "Por qué usar el correo temporal de cleanorapi.com",
 		description:
-			"smail.pw ofrece correo temporal gratis (temp mail) para registros rápidos, verificación OTP y descargas puntuales con retención de 24 horas.",
+			"cleanorapi.com ofrece correo temporal gratis (temp mail) para registros rápidos, verificación OTP y descargas puntuales con retención de 24 horas.",
 		points: [
 			"Útil para flujos de registro y verificación de bajo riesgo",
 			"Sin cuenta ni contraseña para empezar de inmediato",
@@ -276,9 +348,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	fr: {
-		title: "Pourquoi utiliser l'email temporaire smail.pw",
+		title: "Pourquoi utiliser l'email temporaire cleanorapi.com",
 		description:
-			"smail.pw fournit un email temporaire gratuit (temp mail) pour inscription rapide, OTP et usages ponctuels avec rétention de 24h.",
+			"cleanorapi.com fournit un email temporaire gratuit (temp mail) pour inscription rapide, OTP et usages ponctuels avec rétention de 24h.",
 		points: [
 			"Adapté aux inscriptions et vérifications à faible risque",
 			"Aucun compte ni mot de passe requis pour commencer",
@@ -286,9 +358,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	de: {
-		title: "Warum temporäre E-Mail von smail.pw",
+		title: "Warum temporäre E-Mail von cleanorapi.com",
 		description:
-			"smail.pw bietet kostenlose Temp Mail für schnelle Registrierungen, OTP-Verifizierung und einmalige Nutzung mit 24h Aufbewahrung.",
+			"cleanorapi.com bietet kostenlose Temp Mail für schnelle Registrierungen, OTP-Verifizierung und einmalige Nutzung mit 24h Aufbewahrung.",
 		points: [
 			"Ideal für risikoarme Registrierung und Verifizierung",
 			"Kein Konto und kein Passwort für den Sofortstart",
@@ -296,9 +368,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	ja: {
-		title: "smail.pw の一時メールを使う理由",
+		title: "cleanorapi.com の一時メールを使う理由",
 		description:
-			"smail.pw は無料の一時メール（temp mail）です。登録・OTP認証・短期利用向けに24時間の受信箱をすぐ作成できます。",
+			"cleanorapi.com は無料の一時メール（temp mail）です。登録・OTP認証・短期利用向けに24時間の受信箱をすぐ作成できます。",
 		points: [
 			"低リスクの登録と認証フローに最適",
 			"アカウント登録やパスワード設定が不要",
@@ -306,9 +378,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	ko: {
-		title: "smail.pw 임시 이메일을 쓰는 이유",
+		title: "cleanorapi.com 임시 이메일을 쓰는 이유",
 		description:
-			"smail.pw는 무료 임시 이메일(temp mail) 서비스로, 가입/OTP 인증/일회성 사용에 맞춘 24시간 메일함을 즉시 제공합니다.",
+			"cleanorapi.com는 무료 임시 이메일(temp mail) 서비스로, 가입/OTP 인증/일회성 사용에 맞춘 24시간 메일함을 즉시 제공합니다.",
 		points: [
 			"저위험 가입 및 인증 흐름에 적합",
 			"계정 생성과 비밀번호 없이 바로 사용",
@@ -316,9 +388,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	ru: {
-		title: "Почему стоит использовать временную почту smail.pw",
+		title: "Почему стоит использовать временную почту cleanorapi.com",
 		description:
-			"smail.pw — бесплатный temp mail для быстрых регистраций, OTP-подтверждений и одноразовых задач с хранением до 24 часов.",
+			"cleanorapi.com — бесплатный temp mail для быстрых регистраций, OTP-подтверждений и одноразовых задач с хранением до 24 часов.",
 		points: [
 			"Подходит для низкорисковых регистраций и подтверждений",
 			"Без аккаунта и пароля — можно начать сразу",
@@ -326,9 +398,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	pt: {
-		title: "Por que usar o email temporário do smail.pw",
+		title: "Por que usar o email temporário do cleanorapi.com",
 		description:
-			"smail.pw oferece temp mail grátis para cadastro rápido, OTP e uso pontual, com caixa descartável por 24 horas.",
+			"cleanorapi.com oferece temp mail grátis para cadastro rápido, OTP e uso pontual, com caixa descartável por 24 horas.",
 		points: [
 			"Bom para cadastro e verificação de baixo risco",
 			"Sem conta e sem senha para começar imediatamente",
@@ -336,9 +408,9 @@ const SEO_NARRATIVE_COPY: Record<Locale, SeoNarrative> = {
 		],
 	},
 	ar: {
-		title: "لماذا تستخدم البريد المؤقت من smail.pw",
+		title: "لماذا تستخدم البريد المؤقت من cleanorapi.com",
 		description:
-			"يوفر smail.pw بريدًا مؤقتًا مجانيًا (temp mail) للتسجيل السريع ورموز OTP والاستخدام القصير مع احتفاظ لمدة 24 ساعة.",
+			"يوفر cleanorapi.com بريدًا مؤقتًا مجانيًا (temp mail) للتسجيل السريع ورموز OTP والاستخدام القصير مع احتفاظ لمدة 24 ساعة.",
 		points: [
 			"مناسب لعمليات التسجيل والتحقق منخفضة المخاطر",
 			"بدون حساب أو كلمة مرور لبدء الاستخدام فورًا",
@@ -354,16 +426,16 @@ function getSeoNarrative(locale: Locale): SeoNarrative {
 function getHomeJsonLd(locale: Locale) {
 	const localizedHomeUrl = `${BASE_URL}${toLocalePath("/", locale)}`;
 	const descriptionByLocale: Record<Locale, string> = {
-		en: "smail.pw provides free temporary email (temp mail) inboxes for sign-up and OTP verification with 24-hour auto cleanup.",
-		zh: "smail.pw 提供免费临时邮箱（一次性邮箱）服务，适合临时邮箱注册和验证码接收，邮件 24 小时后自动清理。",
-		es: "smail.pw ofrece correo temporal gratis (temp mail) para registros y códigos OTP con limpieza automática en 24 horas.",
-		fr: "smail.pw propose un email temporaire gratuit (temp mail) pour inscription et OTP avec suppression automatique après 24h.",
-		de: "smail.pw bietet kostenlose temporäre E-Mail (Temp Mail) für Registrierung und OTP mit automatischer 24h-Bereinigung.",
-		ja: "smail.pw は登録とOTP認証に使える無料の一時メール（temp mail）を提供し、24時間後に自動削除されます。",
-		ko: "smail.pw는 가입과 OTP 인증에 쓰는 무료 임시 이메일(temp mail)을 제공하며 24시간 후 자동 정리됩니다.",
-		ru: "smail.pw предоставляет бесплатную временную почту (temp mail) для регистрации и OTP с автоочисткой через 24 часа.",
-		pt: "smail.pw oferece email temporário grátis (temp mail) para cadastro e OTP com limpeza automática após 24h.",
-		ar: "يوفر smail.pw بريدًا مؤقتًا مجانيًا (temp mail) للتسجيل ورموز OTP مع حذف تلقائي بعد 24 ساعة.",
+		en: "cleanorapi.com provides free temporary email (temp mail) inboxes for sign-up and OTP verification with 24-hour auto cleanup.",
+		zh: "cleanorapi.com 提供免费临时邮箱（一次性邮箱）服务，适合临时邮箱注册和验证码接收，邮件 24 小时后自动清理。",
+		es: "cleanorapi.com ofrece correo temporal gratis (temp mail) para registros y códigos OTP con limpieza automática en 24 horas.",
+		fr: "cleanorapi.com propose un email temporaire gratuit (temp mail) pour inscription et OTP avec suppression automatique après 24h.",
+		de: "cleanorapi.com bietet kostenlose temporäre E-Mail (Temp Mail) für Registrierung und OTP mit automatischer 24h-Bereinigung.",
+		ja: "cleanorapi.com は登録とOTP認証に使える無料の一時メール（temp mail）を提供し、24時間後に自動削除されます。",
+		ko: "cleanorapi.com는 가입과 OTP 인증에 쓰는 무료 임시 이메일(temp mail)을 제공하며 24시간 후 자동 정리됩니다.",
+		ru: "cleanorapi.com предоставляет бесплатную временную почту (temp mail) для регистрации и OTP с автоочисткой через 24 часа.",
+		pt: "cleanorapi.com oferece email temporário grátis (temp mail) para cadastro e OTP com limpeza automática após 24h.",
+		ar: "يوفر cleanorapi.com بريدًا مؤقتًا مجانيًا (temp mail) للتسجيل ورموز OTP مع حذف تلقائي بعد 24 ساعة.",
 	};
 	const description = descriptionByLocale[locale] ?? descriptionByLocale.en;
 
@@ -372,7 +444,7 @@ function getHomeJsonLd(locale: Locale) {
 		"@graph": [
 			{
 				"@type": "WebSite",
-				name: "smail.pw",
+				name: "cleanorapi.com",
 				url: localizedHomeUrl,
 				inLanguage: locale,
 				description,
@@ -383,7 +455,7 @@ function getHomeJsonLd(locale: Locale) {
 			},
 			{
 				"@type": "WebApplication",
-				name: "smail.pw Temporary Email",
+				name: "cleanorapi.com Temporary Email",
 				url: localizedHomeUrl,
 				applicationCategory: "UtilitiesApplication",
 				operatingSystem: "Web",
@@ -432,14 +504,231 @@ function isAddressExpired(
 	return now - addressIssuedAt >= MAIL_RETENTION_MS;
 }
 
+function getRequestedMailDomain(
+	value: FormDataEntryValue | null,
+	allowedDomains: readonly string[],
+): string | null {
+	if (value === null || value === "") {
+		return allowedDomains[0]!;
+	}
+	if (typeof value !== "string" || !allowedDomains.includes(value)) {
+		return null;
+	}
+	return value;
+}
+
+function DomainSelect({
+	domains,
+	value,
+	onChange,
+	label,
+	disabled,
+	fullWidth = false,
+}: {
+	domains: string[];
+	value: string;
+	onChange: (domain: string) => void;
+	label: string;
+	disabled: boolean;
+	fullWidth?: boolean;
+}) {
+	const [isOpen, setIsOpen] = useState(false);
+	const containerRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (!isOpen) return;
+		const handlePointerDown = (event: PointerEvent) => {
+			if (!containerRef.current?.contains(event.target as Node)) {
+				setIsOpen(false);
+			}
+		};
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") setIsOpen(false);
+		};
+		document.addEventListener("pointerdown", handlePointerDown);
+		document.addEventListener("keydown", handleKeyDown);
+		return () => {
+			document.removeEventListener("pointerdown", handlePointerDown);
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [isOpen]);
+
+	function selectAdjacentDomain(direction: 1 | -1) {
+		const currentIndex = domains.indexOf(value);
+		const nextIndex =
+			(currentIndex + direction + domains.length) % domains.length;
+		onChange(domains[nextIndex]!);
+	}
+
+	return (
+		<div ref={containerRef} className={`domain-select ${fullWidth ? "w-full" : ""}`}>
+			<button
+				type="button"
+				className="domain-select-trigger"
+				aria-label={label}
+				aria-haspopup="listbox"
+				aria-expanded={isOpen}
+				disabled={disabled}
+				onClick={() => setIsOpen((open) => !open)}
+				onKeyDown={(event) => {
+					if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+						event.preventDefault();
+						selectAdjacentDomain(event.key === "ArrowDown" ? 1 : -1);
+						setIsOpen(true);
+					}
+				}}
+			>
+				<span className="min-w-0 truncate"><span className="text-theme-faint">@</span>{value}</span>
+				<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" className="domain-select-caret" data-open={isOpen ? "true" : undefined} aria-hidden="true">
+					<path d="m6 8 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+				</svg>
+			</button>
+			{isOpen && (
+				<div className="domain-select-menu" role="listbox" aria-label={label}>
+					{domains.map((domain) => (
+						<button
+							key={domain}
+							type="button"
+							role="option"
+							aria-selected={value === domain}
+							className="domain-select-option"
+							data-active={value === domain ? "true" : undefined}
+							onClick={() => {
+								onChange(domain);
+								setIsOpen(false);
+							}}
+						>
+							<span className="truncate"><span className="text-theme-faint">@</span>{domain}</span>
+							{value === domain && <span aria-hidden="true">✓</span>}
+						</button>
+					))}
+				</div>
+			)}
+		</div>
+	);
+}
+
+function CustomAddressModal({
+	domains,
+	domain,
+	onDomainChange,
+	onClose,
+	onCreate,
+	copy,
+	isSubmitting,
+}: {
+	domains: string[];
+	domain: string;
+	onDomainChange: (domain: string) => void;
+	onClose: () => void;
+	onCreate: (prefix: string) => void;
+	copy: CustomAddressCopy;
+	isSubmitting: boolean;
+}) {
+	const [prefix, setPrefix] = useState("");
+	const [error, setError] = useState("");
+
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") onClose();
+		};
+		document.addEventListener("keydown", handleKeyDown);
+		return () => document.removeEventListener("keydown", handleKeyDown);
+	}, [onClose]);
+
+	function handleCreate() {
+		if (isReservedMailboxPrefix(prefix)) {
+			setError(
+				copy.reservedPrefix ??
+					"This mailbox name is reserved. Choose another prefix.",
+			);
+			return;
+		}
+		const normalizedPrefix = normalizeCustomMailboxPrefix(prefix);
+		if (!normalizedPrefix) {
+			setError(copy.invalidPrefix);
+			return;
+		}
+		onCreate(normalizedPrefix);
+	}
+
+	return (
+		<div
+			className="modal-backdrop fixed inset-0 z-50 flex items-center justify-center px-4 backdrop-blur-sm"
+			onClick={onClose}
+		>
+			<div
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="custom-address-title"
+				className="glass-panel modal-sheet w-full max-w-lg p-5 sm:p-6"
+				onClick={(event) => event.stopPropagation()}
+			>
+				<div className="space-y-1">
+					<h2 id="custom-address-title" className="text-theme-primary font-display text-xl font-semibold">
+						{copy.title}
+					</h2>
+					<p className="text-theme-muted text-sm leading-relaxed">{copy.description}</p>
+				</div>
+
+				<div className="mt-5 space-y-4">
+					<label className="block space-y-2">
+						<span className="text-theme-secondary text-xs font-semibold">{copy.prefixLabel}</span>
+						<input
+							autoFocus
+							type="text"
+							value={prefix}
+							maxLength={32}
+							autoCapitalize="none"
+							autoComplete="off"
+							spellCheck={false}
+							className="address-composer-input"
+							placeholder={copy.prefixPlaceholder}
+							aria-invalid={Boolean(error)}
+							aria-describedby={error ? "custom-address-error" : undefined}
+							onChange={(event) => {
+								setPrefix(event.target.value.toLowerCase());
+								setError("");
+							}}
+							onKeyDown={(event) => {
+								if (event.key === "Enter") handleCreate();
+							}}
+						/>
+					</label>
+					{error && (
+						<p id="custom-address-error" className="text-xs text-rose-500" aria-live="polite">
+							{error}
+						</p>
+					)}
+					<div className="space-y-2">
+						<p className="text-theme-secondary text-xs font-semibold">{copy.domainLabel}</p>
+						<DomainSelect domains={domains} value={domain} onChange={onDomainChange} label={copy.domainLabel} disabled={isSubmitting} fullWidth />
+					</div>
+					<div className="border-theme-soft bg-theme-subtle rounded-xl border px-3 py-2.5 text-center text-sm font-semibold">
+						<span className="text-theme-primary">{prefix || copy.prefixPlaceholder.replace(/^.*:\s*/, "")}</span>
+						<span className="text-theme-faint">@{domain}</span>
+					</div>
+				</div>
+
+				<div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+					<button type="button" className="neo-button-secondary" onClick={onClose} disabled={isSubmitting}>{copy.cancel}</button>
+					<button type="button" className="neo-button" onClick={handleCreate} disabled={isSubmitting}>{isSubmitting ? "…" : copy.create}</button>
+				</div>
+			</div>
+		</div>
+	);
+}
+
 function EmailModal({
 	email,
 	onClose,
 	copy,
+	adsense,
 }: {
 	email: Email;
 	onClose: () => void;
 	copy: ReturnType<typeof getDictionary>["home"]["modal"];
+	adsense: AdSenseConfig | null;
 }) {
 	const [detail, setDetail] = useState<EmailDetail | null>(null);
 	const [loading, setLoading] = useState(true);
@@ -525,7 +814,7 @@ function EmailModal({
 					</div>
 				</div>
 
-				<div className="p-4 sm:p-5">
+				<div className="overflow-y-auto p-4 sm:p-5">
 					{loading ? (
 						<div className="text-theme-muted flex h-[min(62vh,700px)] items-center justify-center rounded-xl border border-dashed border-theme-soft text-[13px]">
 							{copy.loading}
@@ -543,6 +832,10 @@ function EmailModal({
 							{copy.empty}
 						</div>
 					)}
+					<AdSlot
+						client={adsense?.client}
+						slot={adsense?.emailDetailSlot}
+					/>
 				</div>
 			</div>
 		</div>
@@ -585,7 +878,7 @@ function formatTime(
 async function getEmails(d1: D1Database, toAddress: string) {
 	const { results } = await d1
 		.prepare(
-			"SELECT * FROM emails WHERE to_address = ? ORDER BY time DESC LIMIT 100",
+			"SELECT id, to_address, from_name, from_address, subject, time FROM emails WHERE to_address = ? ORDER BY time DESC LIMIT 100",
 		)
 		.bind(toAddress)
 		.all();
@@ -610,10 +903,27 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
 	let addresses = (session.get("addresses") || []) as string[];
 	const addressIssuedAt = session.get("addressIssuedAt");
 	const now = Date.now();
+	const mailDomains = getMailDomains(context.cloudflare.env.MAIL_DOMAINS);
 	let shouldCommitSession = false;
+	const validAddresses = addresses.filter((address) =>
+		isAllowedRecipientAddress(address, mailDomains),
+	);
+	if (validAddresses.length !== addresses.length) {
+		addresses = validAddresses;
+		session.set("addresses", addresses);
+		if (addresses.length === 0) {
+			session.unset("addressIssuedAt");
+		}
+		shouldCommitSession = true;
+	}
 
 	if (addresses.length > 0 && isAddressExpired(addressIssuedAt, now)) {
-		addresses = [generateEmailAddress()];
+		const currentDomain = getMailDomainFromAddress(addresses[0]!);
+		const nextDomain =
+			currentDomain && mailDomains.includes(currentDomain)
+				? currentDomain
+				: mailDomains[0]!;
+		addresses = [generateEmailAddress(nextDomain)];
 		session.set("addresses", addresses);
 		session.set("addressIssuedAt", now);
 		shouldCommitSession = true;
@@ -626,6 +936,7 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
 		addresses.length > 0
 			? await getEmails(context.cloudflare.env.D1, addresses[0]!)
 			: [];
+	const adsense = getAdSenseConfig(context.cloudflare.env);
 
 	if (shouldCommitSession) {
 		const headers = new Headers();
@@ -634,6 +945,8 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
 			{
 				addresses,
 				emails,
+				mailDomains,
+				adsense,
 				locale,
 				renderedAt: now,
 			},
@@ -644,12 +957,14 @@ export async function loader({ request, context, params }: Route.LoaderArgs) {
 	return {
 		addresses,
 		emails,
+		mailDomains,
+		adsense,
 		locale,
 		renderedAt: now,
 	};
 }
 
-export async function action({ request }: Route.ActionArgs) {
+export async function action({ request, context }: Route.ActionArgs) {
 	const formData = await request.formData();
 	const intent = formData.get("intent");
 	const cookieHeader = request.headers.get("Cookie");
@@ -657,7 +972,33 @@ export async function action({ request }: Route.ActionArgs) {
 	let addresses: string[] = (session.get("addresses") || []) as string[];
 	switch (intent) {
 		case "generate": {
-			addresses = [generateEmailAddress()];
+			const mailDomains = getMailDomains(context.cloudflare.env.MAIL_DOMAINS);
+			const requestedDomain = getRequestedMailDomain(
+				formData.get("domain"),
+				mailDomains,
+			);
+			if (!requestedDomain) {
+				return data({ addresses }, { status: 400 });
+			}
+			addresses = [generateEmailAddress(requestedDomain)];
+			session.set("addressIssuedAt", Date.now());
+			break;
+		}
+		case "custom": {
+			const mailDomains = getMailDomains(context.cloudflare.env.MAIL_DOMAINS);
+			const requestedDomain = getRequestedMailDomain(
+				formData.get("domain"),
+				mailDomains,
+			);
+			const prefixValue = formData.get("prefix");
+			const prefix =
+				typeof prefixValue === "string"
+					? normalizeCustomMailboxPrefix(prefixValue)
+					: null;
+			if (!requestedDomain || !prefix) {
+				return data({ addresses }, { status: 400 });
+			}
+			addresses = [generateCustomEmailAddress(prefix, requestedDomain)];
 			session.set("addressIssuedAt", Date.now());
 			break;
 		}
@@ -686,11 +1027,19 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 	const revalidator = useRevalidator();
 	const [copied, setCopied] = useState(false);
 	const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
+	const [isCustomAddressOpen, setIsCustomAddressOpen] = useState(false);
+	const [selectedDomain, setSelectedDomain] = useState(() => {
+		const currentDomain = getMailDomainFromAddress(loaderData.addresses[0] ?? "");
+		return currentDomain && loaderData.mailDomains.includes(currentDomain)
+			? currentDomain
+			: loaderData.mailDomains[0]!;
+	});
 	const [lastInboxRefreshAt, setLastInboxRefreshAt] = useState(() =>
 		loaderData.renderedAt,
 	);
 	const locale = loaderData.locale || DEFAULT_LOCALE;
 	const copy = getDictionary(locale).home;
+	const customAddressCopy = CUSTOM_ADDRESS_COPY[locale];
 	const seoGuides = getSeoGuides(locale);
 	const seoNarrative = getSeoNarrative(locale);
 	const homeJsonLd = getHomeJsonLd(locale);
@@ -703,6 +1052,19 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 	useEffect(() => {
 		setLastInboxRefreshAt(loaderData.renderedAt);
 	}, [loaderData.renderedAt]);
+
+	useEffect(() => {
+		const currentDomain = getMailDomainFromAddress(addresses[0] ?? "");
+		if (currentDomain && loaderData.mailDomains.includes(currentDomain)) {
+			setSelectedDomain(currentDomain);
+		}
+	}, [addresses, loaderData.mailDomains]);
+
+	useEffect(() => {
+		if (fetcher.state === "idle" && fetcher.data?.addresses?.[0]) {
+			setIsCustomAddressOpen(false);
+		}
+	}, [fetcher.data, fetcher.state]);
 
 	return (
 		<div className="flex flex-1 py-3 sm:py-4">
@@ -798,25 +1160,40 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 											</div>
 										</div>
 
-										<div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-											<button
+									<div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+										<DomainSelect
+											domains={loaderData.mailDomains}
+											value={selectedDomain}
+											onChange={setSelectedDomain}
+											label={customAddressCopy.domainLabel}
+											disabled={isSubmitting}
+										/>
+										<button
 												type="button"
 												name="intent"
 												value="generate"
 												className="neo-button w-full justify-center sm:min-w-[10.5rem] sm:w-auto"
 												onClick={() => {
 													fetcher.submit(
-														{ intent: "generate" },
+														{ intent: "generate", domain: selectedDomain },
 														{ method: "post" },
 													);
 												}}
 												disabled={isSubmitting}
 											>
-												{submittingIntent === "generate" && isSubmitting
-													? copy.generating
-													: copy.generateNew}
-											</button>
-											<button
+											{submittingIntent === "generate" && isSubmitting
+												? copy.generating
+												: copy.generateNew}
+										</button>
+										<button
+											type="button"
+											className="neo-button-secondary w-full justify-center sm:w-auto"
+											onClick={() => setIsCustomAddressOpen(true)}
+											disabled={isSubmitting}
+										>
+											{customAddressCopy.button}
+										</button>
+										<button
 												type="button"
 												name="intent"
 												value="delete"
@@ -847,23 +1224,42 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 										<p className="text-theme-muted mt-1 text-xs leading-relaxed">
 											{copy.noAddressDescription}
 										</p>
-										<button
-											type="button"
-											name="intent"
-											value="generate"
-											className="neo-button mt-3 w-full justify-center sm:w-auto sm:min-w-[10.5rem]"
-											onClick={() => {
-												fetcher.submit(
-													{ intent: "generate" },
-													{ method: "post" },
-												);
-											}}
-											disabled={isSubmitting}
-										>
-											{submittingIntent === "generate" && isSubmitting
-												? copy.generating
-												: copy.generateAddress}
-										</button>
+										<div className="mt-3">
+											<DomainSelect
+												domains={loaderData.mailDomains}
+												value={selectedDomain}
+												onChange={setSelectedDomain}
+												label={customAddressCopy.domainLabel}
+												disabled={isSubmitting}
+											/>
+										</div>
+										<div className="mt-3 flex flex-col gap-2 sm:flex-row">
+											<button
+												type="button"
+												name="intent"
+												value="generate"
+												className="neo-button w-full justify-center sm:w-auto sm:min-w-[10.5rem]"
+												onClick={() => {
+													fetcher.submit(
+														{ intent: "generate", domain: selectedDomain },
+														{ method: "post" },
+													);
+												}}
+												disabled={isSubmitting}
+											>
+												{submittingIntent === "generate" && isSubmitting
+													? copy.generating
+													: copy.generateAddress}
+											</button>
+											<button
+												type="button"
+												className="neo-button-secondary w-full justify-center sm:w-auto"
+												onClick={() => setIsCustomAddressOpen(true)}
+												disabled={isSubmitting}
+											>
+												{customAddressCopy.button}
+											</button>
+										</div>
 										<p className="border-theme-soft bg-theme-subtle text-theme-faint mt-3 rounded-lg border px-3 py-2 text-[11px] leading-relaxed">
 											{copy.safetyHint}
 										</p>
@@ -948,9 +1344,18 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 									))
 								)}
 							</div>
+							<AdSlot
+								client={loaderData.adsense?.client}
+								slot={loaderData.adsense?.inboxSlot}
+							/>
 						</div>
 					</div>
 				</section>
+
+				<AdSlot
+					client={loaderData.adsense?.client}
+					slot={loaderData.adsense?.homeSlot}
+				/>
 
 				<section className="glass-panel px-4 py-4 sm:px-5 sm:py-5">
 					<h2 className="text-theme-primary font-display mb-3 text-lg font-semibold sm:text-xl">
@@ -995,6 +1400,23 @@ export default function Home({ loaderData, actionData }: Route.ComponentProps) {
 					email={selectedEmail}
 					onClose={() => setSelectedEmail(null)}
 					copy={copy.modal}
+					adsense={loaderData.adsense}
+				/>
+			)}
+			{isCustomAddressOpen && (
+				<CustomAddressModal
+					domains={loaderData.mailDomains}
+					domain={selectedDomain}
+					onDomainChange={setSelectedDomain}
+					onClose={() => setIsCustomAddressOpen(false)}
+					onCreate={(prefix) => {
+						fetcher.submit(
+							{ intent: "custom", domain: selectedDomain, prefix },
+							{ method: "post" },
+						);
+					}}
+					copy={customAddressCopy}
+					isSubmitting={isSubmitting}
 				/>
 			)}
 		</div>

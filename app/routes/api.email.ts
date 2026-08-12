@@ -1,6 +1,11 @@
 import Parser from "postal-mime";
 import { getSession } from "~/.server/session";
-import type { EmailDetail } from "~/types/email";
+import type { Email } from "~/types/email";
+import { decompressEmail } from "~/utils/email-storage";
+import {
+	getMailDomains,
+	isAllowedRecipientAddress,
+} from "~/utils/mail-domains";
 import { MAIL_RETENTION_MS } from "~/utils/mail-retention";
 import type { Route } from "./+types/api.email";
 
@@ -70,32 +75,45 @@ export async function loader({ request, params, context }: Route.LoaderArgs) {
 		throw new Response("Not found", { status: 404 });
 	}
 	const d1 = context.cloudflare.env.D1;
-	const r2 = context.cloudflare.env.R2;
 	const mail = await d1
-		.prepare("SELECT * FROM emails WHERE id = ?")
+		.prepare(
+			"SELECT id, to_address, from_name, from_address, subject, time, raw, raw_blob FROM emails WHERE id = ?",
+		)
 		.bind(id)
-		.first<EmailDetail>();
+		.first<
+			Email & {
+				raw: string | null;
+				raw_blob: ArrayBuffer | ArrayBufferView | number[] | null;
+			}
+		>();
 	if (!mail) {
 		throw new Response("Not found", { status: 404 });
 	}
 
 	const session = await getSession(request.headers.get("Cookie"));
 	const addresses = session.get("addresses") || [];
+	const mailDomains = getMailDomains(context.cloudflare.env.MAIL_DOMAINS);
 	const addressIssuedAt = session.get("addressIssuedAt");
 	const isAddressExpired =
 		typeof addressIssuedAt === "number" &&
 		Date.now() - addressIssuedAt >= MAIL_RETENTION_MS;
-	if (isAddressExpired || !addresses.includes(mail.to_address)) {
+	if (
+		isAddressExpired ||
+		!isAllowedRecipientAddress(mail.to_address, mailDomains) ||
+		!addresses.includes(mail.to_address)
+	) {
 		throw new Response("Unauthorized", { status: 403 });
 	}
 
-	const object = await r2.get(id);
-	if (!object) {
+	if (!mail.raw_blob && !mail.raw) {
 		throw new Response("Not found", { status: 404 });
 	}
 
 	const parser = new Parser();
-	const message = await parser.parse(object.body);
+	const rawEmail = mail.raw_blob
+		? await decompressEmail(mail.raw_blob)
+		: mail.raw || "";
+	const message = await parser.parse(rawEmail);
 	const content = message.html || message.text || "";
 	return {
 		body: wrapEmailContent(content),

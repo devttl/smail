@@ -1,6 +1,6 @@
-## smail.pw FAQ
+## cleanorapi.com FAQ
 
-### Was ist smail.pw?
+### Was ist cleanorapi.com?
 Ein Dienst für temporäre Postfächer und kurzlebige E-Mails.
 
 ### Brauche ich ein Konto?

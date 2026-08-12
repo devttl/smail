@@ -1,4 +1,5 @@
 import { Link, redirect } from "react-router";
+import { AdSlot } from "~/components/AdSlot";
 import {
 	BLOG_PAGE_SIZE,
 	getBlogPageCount,
@@ -14,6 +15,7 @@ import {
 	toLocalePath,
 } from "~/i18n/config";
 import { BASE_URL, isBlogLocaleIndexable } from "~/seo.config";
+import { getAdSenseConfig } from "~/utils/adsense";
 import { mergeRouteMeta } from "~/utils/meta";
 import type { Route } from "./+types/blog";
 
@@ -39,10 +41,10 @@ type BlogCopy = {
 
 const BLOG_COPY: Record<Locale, BlogCopy> = {
 	en: {
-		title: "Temporary Email Guides, Tips & Fixes | smail.pw",
+		title: "Temporary Email Guides, Tips & Fixes | cleanorapi.com",
 		description:
 			"Temporary email guides, best practices, and troubleshooting tips for verification and disposable inbox workflows.",
-		header: "smail.pw Blog",
+		header: "cleanorapi.com Blog",
 		subheader: "Guides and troubleshooting for temporary email users",
 		tag: "Blog",
 		readArticle: "Read article",
@@ -51,14 +53,14 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "Back to blog",
 		relatedPosts: "Related posts",
 		currentArticle: "Current article",
-		postTitleSuffix: " | smail.pw Blog",
+		postTitleSuffix: " | cleanorapi.com Blog",
 	},
 	zh: {
 		title:
-			"临时邮箱博客：注册、验证码、隐私保护与收信排障实用完整指南 | smail.pw",
+			"临时邮箱博客：注册、验证码、隐私保护与收信排障实用完整指南 | cleanorapi.com",
 		description:
 			"临时邮箱使用指南：最佳实践、收信排障、临时邮箱与邮箱别名对比。",
-		header: "smail.pw 博客",
+		header: "cleanorapi.com 博客",
 		subheader: "临时邮箱使用指南与实用排障手册",
 		tag: "博客",
 		readArticle: "阅读全文",
@@ -67,13 +69,13 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "返回博客",
 		relatedPosts: "相关文章",
 		currentArticle: "当前文章",
-		postTitleSuffix: " | smail.pw 临时邮箱博客实用指南",
+		postTitleSuffix: " | cleanorapi.com 临时邮箱博客实用指南",
 	},
 	es: {
-		title: "Blog de correo temporal: guías y soluciones | smail.pw",
+		title: "Blog de correo temporal: guías y soluciones | cleanorapi.com",
 		description:
 			"Guías de correo temporal, buenas prácticas y pasos de solución para registros, verificación y bandejas desechables.",
-		header: "Blog de smail.pw",
+		header: "Blog de cleanorapi.com",
 		subheader:
 			"Guías y resolución de problemas para usuarios de correo temporal",
 		tag: "Blog",
@@ -83,13 +85,13 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "Volver al blog",
 		relatedPosts: "Artículos relacionados",
 		currentArticle: "Artículo actual",
-		postTitleSuffix: " | Blog de smail.pw",
+		postTitleSuffix: " | Blog de cleanorapi.com",
 	},
 	fr: {
-		title: "Blog email temporaire: guides et dépannage | smail.pw",
+		title: "Blog email temporaire: guides et dépannage | cleanorapi.com",
 		description:
 			"Guides d'email temporaire, bonnes pratiques et dépannage pour l'inscription, la vérification et les boîtes jetables.",
-		header: "Blog smail.pw",
+		header: "Blog cleanorapi.com",
 		subheader: "Guides et dépannage pour les utilisateurs d'email temporaire",
 		tag: "Blog",
 		readArticle: "Lire l'article",
@@ -98,13 +100,13 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "Retour au blog",
 		relatedPosts: "Articles liés",
 		currentArticle: "Article actuel",
-		postTitleSuffix: " | Blog smail.pw",
+		postTitleSuffix: " | Blog cleanorapi.com",
 	},
 	de: {
-		title: "Temporäre E-Mail Blog: Ratgeber und Hilfe | smail.pw",
+		title: "Temporäre E-Mail Blog: Ratgeber und Hilfe | cleanorapi.com",
 		description:
 			"Ratgeber, Best Practices und Fehlerbehebung für temporäre E-Mails bei Registrierung und Verifizierung.",
-		header: "smail.pw Blog",
+		header: "cleanorapi.com Blog",
 		subheader: "Leitfäden und Fehlerbehebung für Nutzer temporärer E-Mails",
 		tag: "Blog",
 		readArticle: "Artikel lesen",
@@ -113,14 +115,14 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "Zurück zum Blog",
 		relatedPosts: "Ähnliche Artikel",
 		currentArticle: "Aktueller Artikel",
-		postTitleSuffix: " | smail.pw Blog",
+		postTitleSuffix: " | cleanorapi.com Blog",
 	},
 	ja: {
 		title:
-			"一時メールブログ：登録・認証・受信トラブルの実用解決ガイド | smail.pw",
+			"一時メールブログ：登録・認証・受信トラブルの実用解決ガイド | cleanorapi.com",
 		description:
 			"一時メールの使い方、ベストプラクティス、認証や受信トラブルの解決手順をまとめたガイドです。",
-		header: "smail.pw ブログ",
+		header: "cleanorapi.com ブログ",
 		subheader: "一時メール利用者向けガイドとトラブル解決",
 		tag: "ブログ",
 		readArticle: "記事を読む",
@@ -129,13 +131,13 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "ブログに戻る",
 		relatedPosts: "関連記事",
 		currentArticle: "現在の記事",
-		postTitleSuffix: " | smail.pw 一時メールブログ",
+		postTitleSuffix: " | cleanorapi.com 一時メールブログ",
 	},
 	ko: {
-		title: "임시 이메일 블로그: 가입·인증·수신 문제 해결 가이드 | smail.pw",
+		title: "임시 이메일 블로그: 가입·인증·수신 문제 해결 가이드 | cleanorapi.com",
 		description:
 			"임시 이메일 사용 가이드, 모범 사례, 가입·인증·수신 문제 해결 방법을 제공합니다.",
-		header: "smail.pw 블로그",
+		header: "cleanorapi.com 블로그",
 		subheader: "임시 이메일 사용자를 위한 가이드와 문제 해결",
 		tag: "블로그",
 		readArticle: "기사 읽기",
@@ -144,13 +146,13 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "블로그로 돌아가기",
 		relatedPosts: "관련 글",
 		currentArticle: "현재 글",
-		postTitleSuffix: " | smail.pw 임시 이메일 블로그",
+		postTitleSuffix: " | cleanorapi.com 임시 이메일 블로그",
 	},
 	ru: {
-		title: "Блог временной почты: руководства и решения | smail.pw",
+		title: "Блог временной почты: руководства и решения | cleanorapi.com",
 		description:
 			"Руководства по временной почте, лучшие практики и устранение проблем для регистрации и подтверждений.",
-		header: "Блог smail.pw",
+		header: "Блог cleanorapi.com",
 		subheader: "Гайды и устранение проблем для пользователей временной почты",
 		tag: "Блог",
 		readArticle: "Читать статью",
@@ -159,13 +161,13 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "Назад в блог",
 		relatedPosts: "Похожие статьи",
 		currentArticle: "Текущая статья",
-		postTitleSuffix: " | Блог smail.pw",
+		postTitleSuffix: " | Блог cleanorapi.com",
 	},
 	pt: {
-		title: "Blog de email temporário: guias e soluções | smail.pw",
+		title: "Blog de email temporário: guias e soluções | cleanorapi.com",
 		description:
 			"Guias de email temporário, boas práticas e resolução de problemas para cadastro, verificação e caixas descartáveis.",
-		header: "Blog smail.pw",
+		header: "Blog cleanorapi.com",
 		subheader: "Guias e solução de problemas para usuários de email temporário",
 		tag: "Blog",
 		readArticle: "Ler artigo",
@@ -174,13 +176,13 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "Voltar ao blog",
 		relatedPosts: "Artigos relacionados",
 		currentArticle: "Artigo atual",
-		postTitleSuffix: " | Blog smail.pw",
+		postTitleSuffix: " | Blog cleanorapi.com",
 	},
 	ar: {
-		title: "مدونة البريد المؤقت: أدلة وحلول للمشكلات | smail.pw",
+		title: "مدونة البريد المؤقت: أدلة وحلول للمشكلات | cleanorapi.com",
 		description:
 			"أدلة البريد المؤقت، أفضل الممارسات، وحلول مشكلات التسجيل والتحقق واستقبال الرسائل.",
-		header: "مدونة smail.pw",
+		header: "مدونة cleanorapi.com",
 		subheader: "أدلة وحلول لمستخدمي البريد المؤقت",
 		tag: "مدونة",
 		readArticle: "اقرأ المقال",
@@ -189,7 +191,7 @@ const BLOG_COPY: Record<Locale, BlogCopy> = {
 		backToBlog: "العودة إلى المدونة",
 		relatedPosts: "مقالات ذات صلة",
 		currentArticle: "المقال الحالي",
-		postTitleSuffix: " | مدونة smail.pw",
+		postTitleSuffix: " | مدونة cleanorapi.com",
 	},
 };
 
@@ -249,7 +251,7 @@ export function getBlogPostMetaTitle(
 		return titleWithLocalizedSuffix;
 	}
 
-	const fallbackSuffix = " | smail.pw";
+	const fallbackSuffix = " | cleanorapi.com";
 	const titleWithFallbackSuffix = `${postTitle}${fallbackSuffix}`;
 	if (titleWithFallbackSuffix.length <= maxTitleLength) {
 		return titleWithFallbackSuffix;
@@ -337,7 +339,7 @@ export function meta({ params, matches }: Route.MetaArgs) {
 	return mergeRouteMeta(matches, metaItems);
 }
 
-export async function loader({ params, request }: Route.LoaderArgs) {
+export async function loader({ params, request, context }: Route.LoaderArgs) {
 	const { locale, shouldRedirectToDefault, isInvalid } = resolveLocaleParam(
 		params.lang,
 	);
@@ -360,6 +362,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 		totalPosts,
 		totalPages,
 		posts: getBlogPostsByPage(locale, 1),
+		adsense: getAdSenseConfig(context.cloudflare.env),
 	};
 }
 
@@ -427,6 +430,10 @@ export default function BlogListPage({ loaderData }: Route.ComponentProps) {
 						</article>
 					))}
 				</div>
+				<AdSlot
+					client={loaderData.adsense?.client}
+					slot={loaderData.adsense?.blogListSlot}
+				/>
 
 				{loaderData.totalPages > 1 && (
 					<nav

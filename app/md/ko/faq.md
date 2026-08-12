@@ -1,6 +1,6 @@
-## smail.pw 자주 묻는 질문
+## cleanorapi.com 자주 묻는 질문
 
-### smail.pw는 무엇인가요?
+### cleanorapi.com는 무엇인가요?
 단기 수신을 위한 임시 이메일 서비스입니다.
 
 ### 가입이 필요한가요?

@@ -1,6 +1,6 @@
 ## Correo temporal sin registro
 
-Con smail.pw puedes recibir correos sin crear cuenta ni contraseña.
+Con cleanorapi.com puedes recibir correos sin crear cuenta ni contraseña.
 
 ### Casos comunes
 

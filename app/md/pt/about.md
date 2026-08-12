@@ -1,6 +1,6 @@
-## Sobre o smail.pw (Email temporário)
+## Sobre o cleanorapi.com (Email temporário)
 
-smail.pw é um serviço de **email temporário** para cadastros de baixo risco, OTP e verificações pontuais.
+cleanorapi.com é um serviço de **email temporário** para cadastros de baixo risco, OTP e verificações pontuais.
 
 ### Para que usar
 

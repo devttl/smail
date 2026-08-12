@@ -1,6 +1,6 @@
 ## Temporäre E-Mail ohne Registrierung
 
-Mit smail.pw empfängst du E-Mails ohne Konto und ohne Passwort.
+Mit cleanorapi.com empfängst du E-Mails ohne Konto und ohne Passwort.
 
 ### Typische Szenarien
 

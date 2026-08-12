@@ -1,6 +1,6 @@
 ## Correo temporal de 24 horas
 
-smail.pw ofrece un buzón temporal de 24 horas para flujos de registro donde los mensajes pueden llegar con retraso.
+cleanorapi.com ofrece un buzón temporal de 24 horas para flujos de registro donde los mensajes pueden llegar con retraso.
 
 ### Ventajas
 
@@ -12,7 +12,7 @@ smail.pw ofrece un buzón temporal de 24 horas para flujos de registro donde los
 
 1. Genera una dirección temporal.
 2. Úsala en el sitio objetivo.
-3. Revisa el inbox en smail.pw.
+3. Revisa el inbox en cleanorapi.com.
 4. Guarda la información importante antes del vencimiento.
 
 ### Guías relacionadas

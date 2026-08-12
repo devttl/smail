@@ -11,15 +11,14 @@
 - `app/md/<locale>/`：多语言 SEO Markdown 页面。
 - `app/blog/<locale>/`：多语言博客 Markdown 内容；元数据在 `app/blog/data.ts`。
 - `app/i18n/`：语言配置与文案。
-- `app/.server/session.ts`：基于 Cloudflare KV 的 Session 存储。
+- `app/.server/session.ts`：基于签名 Cookie 的 Session 存储。
 - `app/utils/`：通用工具（主题、meta、邮件保留策略等）。
 - `workers/app.ts`：Cloudflare Worker 入口，处理 `fetch` / `email` / `scheduled`。
 - `migrations/*.sql`：D1 SQL 迁移文件（当前项目不使用 ORM）。
 
 ## 真实数据架构（必须遵循）
-- D1：仅存邮件元数据（`emails` 表）。
-- R2：存邮件原始内容（对象 key = 邮件 `id`）。
-- KV：存会话数据（临时邮箱地址、签发时间等）。
+- D1：在 `emails` 表中保存邮件元数据和 gzip 压缩的原始 MIME（`raw_blob`）。
+- Signed Cookie Session：保存临时邮箱地址、签发时间等会话数据。
 - 邮件详情接口：`/api/email/:id`，必须校验会话地址归属与过期状态。
 
 ## 开发与构建命令

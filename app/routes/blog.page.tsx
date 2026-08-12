@@ -1,4 +1,5 @@
 import { Link, redirect } from "react-router";
+import { AdSlot } from "~/components/AdSlot";
 import {
 	BLOG_PAGE_SIZE,
 	getBlogPageCount,
@@ -13,6 +14,7 @@ import {
 	toLocalePath,
 } from "~/i18n/config";
 import { BASE_URL, isBlogLocaleIndexable } from "~/seo.config";
+import { getAdSenseConfig } from "~/utils/adsense";
 import { mergeRouteMeta } from "~/utils/meta";
 import type { Route } from "./+types/blog.page";
 import {
@@ -61,7 +63,7 @@ export function meta({ params, loaderData, matches }: Route.MetaArgs) {
 	]);
 }
 
-export async function loader({ params, request }: Route.LoaderArgs) {
+export async function loader({ params, request, context }: Route.LoaderArgs) {
 	const { locale, shouldRedirectToDefault, isInvalid } = resolveLocaleParam(
 		params.lang,
 	);
@@ -96,6 +98,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 		totalPosts,
 		totalPages,
 		posts: getBlogPostsByPage(locale, page),
+		adsense: getAdSenseConfig(context.cloudflare.env),
 	};
 }
 
@@ -165,6 +168,10 @@ export default function BlogPagedListPage({
 						</article>
 					))}
 				</div>
+				<AdSlot
+					client={loaderData.adsense?.client}
+					slot={loaderData.adsense?.blogListSlot}
+				/>
 
 				{loaderData.totalPages > 1 && (
 					<nav

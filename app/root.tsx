@@ -32,7 +32,7 @@ import { DEFAULT_THEME, parseThemeFromCookieHeader } from "~/utils/theme";
 import type { Route } from "./+types/root";
 import "./app.css";
 
-const SITE_OG_TITLE = "smail.pw · 24-Hour Temporary Email";
+const SITE_OG_TITLE = "cleanorapi.com · 24-Hour Temporary Email";
 const SITE_OG_DESCRIPTION =
 	"Free disposable email inbox with 24-hour auto-expiry. Use a temporary address for sign-ups and verification.";
 
@@ -86,7 +86,7 @@ export function meta({ location }: Route.MetaArgs) {
 			tagName: "link",
 			rel: "alternate",
 			type: "application/rss+xml",
-			title: "smail.pw Blog RSS",
+			title: "cleanorapi.com Blog RSS",
 			href: `${BASE_URL}${toLocalePath("/rss.xml", rssLocale)}`,
 		},
 		{
@@ -95,7 +95,7 @@ export function meta({ location }: Route.MetaArgs) {
 		},
 		{
 			property: "og:site_name",
-			content: "smail.pw",
+			content: "cleanorapi.com",
 		},
 		{
 			property: "og:url",

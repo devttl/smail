@@ -158,14 +158,14 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
 							<span className="brand-badge relative inline-flex size-[36px]">
 								<img
 									src="/favicon.ico"
-									alt="smail.pw logo"
+									alt="cleanorapi.com logo"
 									className="size-[20px]"
 								/>
 								<span className="absolute -inset-px -z-10 rounded-xl bg-blue-500/25 blur-sm transition group-hover:bg-cyan-400/35" />
 							</span>
 							<div className="space-y-0.5">
 								<span className="font-display block text-base font-bold tracking-tight text-theme-primary">
-									smail.pw
+									cleanorapi.com
 								</span>
 								<span className="block text-[10px] uppercase tracking-[0.2em] text-theme-faint">
 									{copy.siteSubtitle}
@@ -474,18 +474,10 @@ export default function Layout({ loaderData }: Route.ComponentProps) {
 							>
 								{contactLabel}
 							</Link>
-							<a
-								href="https://smail.now/"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="footer-link"
-							>
-								smail.now
-							</a>
 						</div>
 					</div>
 					<div className="mt-5 border-t border-theme-soft pt-4 text-[11px] text-theme-faint">
-						© {loaderData.renderedYear} smail.pw · {copy.copyright}
+						© {loaderData.renderedYear} cleanorapi.com · {copy.copyright}
 					</div>
 				</footer>
 			</div>

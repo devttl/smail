@@ -12,7 +12,6 @@ const mdPages = [
 	"online-temporary-email",
 	"domestic-temporary-email",
 	"can-temporary-email-send",
-	"smail-vs-smailpro",
 ];
 
 export default [
@@ -29,9 +28,11 @@ export default [
 		id: "locale-zh-cn-splat",
 	}),
 	route("/robots.txt", "routes/robots.txt.tsx"),
+	route("/ads.txt", "routes/ads.txt.tsx"),
 	route("/sitemap.xml", "routes/sitemap.xml.tsx"),
 	route("/rss.xml", "routes/rss.xml.tsx", { id: "rss-default" }),
 	route(":lang/rss.xml", "routes/rss.xml.tsx", { id: "rss-locale" }),
+	route("/inbox/:address", "routes/inbox.tsx"),
 	layout("routes/layout.tsx", [
 		route(":lang?", "routes/home.tsx", { id: "home" }),
 		route(":lang?/contact", "routes/contact.tsx", { id: "contact" }),

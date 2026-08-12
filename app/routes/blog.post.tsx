@@ -1,5 +1,6 @@
 import Markdoc from "@markdoc/markdoc";
 import { Link, redirect } from "react-router";
+import { AdSlot } from "~/components/AdSlot";
 import { getBlogPostMeta, listBlogPosts, toBlogLocale } from "~/blog/data";
 import {
 	DEFAULT_LOCALE,
@@ -9,6 +10,7 @@ import {
 	toLocalePath,
 } from "~/i18n/config";
 import { BASE_URL, isBlogLocaleIndexable } from "~/seo.config";
+import { getAdSenseConfig } from "~/utils/adsense";
 import { mergeRouteMeta } from "~/utils/meta";
 import type { Route } from "./+types/blog.post";
 import {
@@ -52,7 +54,7 @@ export function meta({ params, matches }: Route.MetaArgs) {
 	]);
 }
 
-export async function loader({ params, request }: Route.LoaderArgs) {
+export async function loader({ params, request, context }: Route.LoaderArgs) {
 	const { locale, shouldRedirectToDefault, isInvalid } = resolveLocaleParam(
 		params.lang,
 	);
@@ -88,7 +90,13 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 		.filter((item) => item.slug !== slug)
 		.slice(0, 3);
 
-	return { locale, post, html, related };
+	return {
+		locale,
+		post,
+		html,
+		related,
+		adsense: getAdSenseConfig(context.cloudflare.env),
+	};
 }
 
 export default function BlogPostPage({ loaderData }: Route.ComponentProps) {
@@ -110,11 +118,11 @@ export default function BlogPostPage({ loaderData }: Route.ComponentProps) {
 		},
 		author: {
 			"@type": "Organization",
-			name: "smail.pw",
+			name: "cleanorapi.com",
 		},
 		publisher: {
 			"@type": "Organization",
-			name: "smail.pw",
+			name: "cleanorapi.com",
 			logo: {
 				"@type": "ImageObject",
 				url: `${BASE_URL}/favicon.ico`,
@@ -147,6 +155,10 @@ export default function BlogPostPage({ loaderData }: Route.ComponentProps) {
 					<article
 						className="prose prose-sm sm:prose-base max-w-none"
 						dangerouslySetInnerHTML={{ __html: loaderData.html }}
+					/>
+					<AdSlot
+						client={loaderData.adsense?.client}
+						slot={loaderData.adsense?.articleSlot}
 					/>
 				</div>
 

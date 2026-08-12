@@ -1,7 +1,7 @@
 import { BLOG_LOCALES } from "~/blog/data";
 import { type Locale, SUPPORTED_LOCALES } from "~/i18n/config";
 
-export const BASE_URL = "https://smail.pw";
+export const BASE_URL = "https://cleanorapi.com";
 
 export const MARKDOWN_BASE_PATHS = [
 	"/about",
@@ -15,7 +15,6 @@ export const MARKDOWN_BASE_PATHS = [
 	"/online-temporary-email",
 	"/domestic-temporary-email",
 	"/can-temporary-email-send",
-	"/smail-vs-smailpro",
 ] as const;
 
 export const BLOG_BASE_PATH = "/blog";

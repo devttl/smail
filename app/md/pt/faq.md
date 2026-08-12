@@ -1,6 +1,6 @@
-## FAQ do smail.pw
+## FAQ do cleanorapi.com
 
-### O que é o smail.pw?
+### O que é o cleanorapi.com?
 É um serviço de email temporário para recebimento de curta duração.
 
 ### Precisa de cadastro?
