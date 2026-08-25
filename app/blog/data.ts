@@ -28,6 +28,14 @@ export type BlogPostMeta = {
 const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	en: [
 		{
+			slug: "are-temporary-emails-safe",
+			title: "Are Temporary Emails Safe? Privacy Limits Explained",
+			description:
+				"A practical risk framework for temporary email: what it protects, what it cannot protect, and how to decide when a permanent inbox is necessary.",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
+		{
 			slug: "direct-email-inbox-link",
 			title: "Open a Temporary Inbox Directly with an Email Address Link",
 			description:
@@ -61,6 +69,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	zh: [
+		{
+			slug: "are-temporary-emails-safe",
+			title: "临时邮箱安全吗？隐私边界与正确使用方法",
+			description:
+				"用风险分级和可执行流程说明临时邮箱能保护什么、不能保护什么，以及何时必须改用长期邮箱。",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
 		{
 			slug: "direct-email-inbox-link",
 			title: "用邮箱地址链接直接打开临时收件箱",
@@ -96,6 +112,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	es: [
 		{
+			slug: "are-temporary-emails-safe",
+			title: "¿Son seguros los correos temporales? Límites de privacidad explicados",
+			description:
+				"Un marco práctico para entender qué protege un correo temporal, qué riesgos mantiene y cuándo usar una dirección permanente.",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
+		{
 			slug: "direct-email-inbox-link",
 			title: "Abre un buzón temporal directamente con un enlace de email",
 			description:
@@ -129,6 +153,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	fr: [
+		{
+			slug: "are-temporary-emails-safe",
+			title: "Les e-mails temporaires sont-ils sûrs ? Leurs limites de confidentialité",
+			description:
+				"Un cadre pratique pour savoir ce qu'une adresse temporaire protège, ses risques et quand préférer une boîte permanente.",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
 		{
 			slug: "direct-email-inbox-link",
 			title: "Ouvrir directement une boîte temporaire avec un lien email",
@@ -165,6 +197,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	de: [
 		{
+			slug: "are-temporary-emails-safe",
+			title: "Sind temporäre E-Mails sicher? Datenschutzgrenzen erklärt",
+			description:
+				"Ein praktischer Rahmen: Was ein temporäres Postfach schützt, welche Risiken bleiben und wann eine dauerhafte Adresse nötig ist.",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
+		{
 			slug: "direct-email-inbox-link",
 			title: "Ein temporäres Postfach direkt per E-Mail-Link öffnen",
 			description:
@@ -200,6 +240,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ja: [
 		{
+			slug: "are-temporary-emails-safe",
+			title: "一時メールは安全？プライバシーの限界と正しい使い方",
+			description:
+				"一時メールで守れること、残るリスク、恒久的なメールアドレスへ切り替えるべき時を実践的に解説します。",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
+		{
 			slug: "direct-email-inbox-link",
 			title: "メールアドレスのリンクから一時受信箱を直接開く方法",
 			description:
@@ -233,6 +281,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ko: [
+		{
+			slug: "are-temporary-emails-safe",
+			title: "임시 이메일은 안전할까? 개인정보 보호의 한계와 올바른 사용법",
+			description:
+				"임시 이메일이 보호하는 범위와 남는 위험, 영구 이메일로 전환해야 하는 시점을 실용적으로 설명합니다.",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
 		{
 			slug: "direct-email-inbox-link",
 			title: "이메일 주소 링크로 임시 받은편지함 바로 열기",
@@ -268,6 +324,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ru: [
 		{
+			slug: "are-temporary-emails-safe",
+			title: "Безопасна ли временная почта? Ограничения конфиденциальности",
+			description:
+				"Практическая схема: что защищает временный адрес, какие риски остаются и когда нужен постоянный ящик.",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
+		{
 			slug: "direct-email-inbox-link",
 			title: "Как открыть временный ящик по прямой ссылке с адресом",
 			description:
@@ -302,6 +366,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	pt: [
 		{
+			slug: "are-temporary-emails-safe",
+			title: "Email temporário é seguro? Limites de privacidade explicados",
+			description:
+				"Um guia prático sobre o que o email temporário protege, os riscos que permanecem e quando usar uma caixa permanente.",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
+		{
 			slug: "direct-email-inbox-link",
 			title: "Abra uma caixa temporária diretamente por um link de email",
 			description:
@@ -335,6 +407,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ar: [
+		{
+			slug: "are-temporary-emails-safe",
+			title: "هل البريد المؤقت آمن؟ حدود الخصوصية وطريقة الاستخدام الصحيحة",
+			description:
+				"إطار عملي يوضح ما الذي يحميه البريد المؤقت، والمخاطر المتبقية، ومتى تحتاج إلى صندوق بريد دائم.",
+			publishedAt: "2026-08-25",
+			readingMinutes: 9,
+		},
 		{
 			slug: "direct-email-inbox-link",
 			title: "فتح صندوق بريد مؤقت مباشرة عبر رابط عنوان البريد",

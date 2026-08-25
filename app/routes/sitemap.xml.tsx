@@ -1,4 +1,8 @@
-import { getAllBlogSlugs, getBlogPageCount } from "~/blog/data";
+import {
+	getAllBlogSlugs,
+	getBlogPageCount,
+	getBlogPostMeta,
+} from "~/blog/data";
 import { SUPPORTED_LOCALES, toLocalePath } from "~/i18n/config";
 import {
 	BASE_URL,
@@ -10,67 +14,60 @@ import {
 
 const STATIC_PATHS = ["/", "/contact"] as const;
 
+type SitemapEntry = {
+	path: string;
+	lastmod?: string;
+};
+
 export async function loader() {
-	const lastmod = new Date().toISOString();
 	const seen = new Set<string>();
-	const allPaths: string[] = [];
+	const entries: SitemapEntry[] = [];
+
+	function addEntry(path: string, lastmod?: string) {
+		if (seen.has(path)) {
+			return;
+		}
+		seen.add(path);
+		entries.push({ path, lastmod });
+	}
 
 	for (const locale of SUPPORTED_LOCALES) {
 		for (const staticPath of STATIC_PATHS) {
-			const localizedPath = toLocalePath(staticPath, locale);
-			if (seen.has(localizedPath)) {
-				continue;
-			}
-			seen.add(localizedPath);
-			allPaths.push(localizedPath);
+			addEntry(toLocalePath(staticPath, locale));
 		}
 	}
 
 	for (const locale of MARKDOWN_INDEXABLE_LOCALES) {
 		for (const basePath of MARKDOWN_BASE_PATHS) {
-			const localizedPath = toLocalePath(basePath, locale);
-			if (seen.has(localizedPath)) {
-				continue;
-			}
-			seen.add(localizedPath);
-			allPaths.push(localizedPath);
+			addEntry(toLocalePath(basePath, locale));
 		}
 	}
 
 	const blogSlugs = getAllBlogSlugs();
 	for (const locale of BLOG_INDEXABLE_LOCALES) {
-		const blogListPath = toLocalePath(BLOG_BASE_PATH, locale);
-		if (!seen.has(blogListPath)) {
-			seen.add(blogListPath);
-			allPaths.push(blogListPath);
-		}
+		addEntry(toLocalePath(BLOG_BASE_PATH, locale));
 
 		const totalPages = getBlogPageCount(locale);
 		for (let page = 2; page <= totalPages; page++) {
-			const pagedPath = toLocalePath(`${BLOG_BASE_PATH}/page/${page}`, locale);
-			if (seen.has(pagedPath)) {
-				continue;
-			}
-			seen.add(pagedPath);
-			allPaths.push(pagedPath);
+			addEntry(toLocalePath(`${BLOG_BASE_PATH}/page/${page}`, locale));
 		}
 
 		for (const slug of blogSlugs) {
-			const blogPostPath = toLocalePath(`${BLOG_BASE_PATH}/${slug}`, locale);
-			if (seen.has(blogPostPath)) {
-				continue;
-			}
-			seen.add(blogPostPath);
-			allPaths.push(blogPostPath);
+			const post = getBlogPostMeta(locale, slug);
+			addEntry(
+				toLocalePath(`${BLOG_BASE_PATH}/${slug}`, locale),
+				post?.updatedAt ?? post?.publishedAt,
+			);
 		}
 	}
 
 	const body =
 		`<?xml version="1.0" encoding="UTF-8"?>\n` +
 		`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` +
-		allPaths
-			.map((path) => {
-				return `\n  <url>\n    <loc>${BASE_URL}${path}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`;
+		entries
+			.map(({ path, lastmod }) => {
+				const lastmodElement = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : "";
+				return `\n  <url>\n    <loc>${BASE_URL}${path}</loc>${lastmodElement}\n  </url>`;
 			})
 			.join("") +
 		"\n</urlset>\n";
@@ -79,6 +76,7 @@ export async function loader() {
 		status: 200,
 		headers: {
 			"Content-Type": "application/xml; charset=utf-8",
+			"Cache-Control": "public, max-age=1800",
 		},
 	});
 }
