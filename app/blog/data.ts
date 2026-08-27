@@ -28,6 +28,14 @@ export type BlogPostMeta = {
 const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	en: [
 		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "How to Use Temporary Email for Online Shopping Without Losing Receipts or Returns",
+			description:
+				"A practical guide to separating shopping mail from your primary inbox while preserving order confirmations, return access, warranties, and account recovery.",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-free-trials",
 			title: "How to Use Temporary Email for Free Trials Without Losing Important Access",
 			description:
@@ -77,6 +85,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	zh: [
+		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "网购时如何使用临时邮箱，同时保留收据与退换货凭证",
+			description:
+				"一套兼顾邮箱隐私与订单连续性的实用方法：减少营销邮件，同时妥善保存订单确认、退换货入口、保修资料和账号恢复能力。",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-free-trials",
 			title: "免费试用注册如何避免营销邮件和续费提醒",
@@ -128,6 +144,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	es: [
 		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "Cómo usar correo temporal al comprar en línea sin perder recibos ni devoluciones",
+			description:
+				"Una guía práctica para separar el correo comercial de tu bandeja principal sin perder confirmaciones, devoluciones, garantías ni recuperación de cuenta.",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-free-trials",
 			title: "Cómo usar correo temporal en pruebas gratuitas sin perder el acceso",
 			description:
@@ -177,6 +201,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	fr: [
+		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "Utiliser un e-mail temporaire pour les achats en ligne sans perdre reçus ni retours",
+			description:
+				"Une méthode pratique pour isoler les messages commerciaux tout en conservant confirmations, retours, garanties et récupération de compte.",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-free-trials",
 			title: "Utiliser un e-mail temporaire pour un essai gratuit sans perdre l'accès",
@@ -229,6 +261,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	de: [
 		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "Temporäre E-Mail beim Online-Einkauf nutzen, ohne Belege oder Retouren zu verlieren",
+			description:
+				"Ein praktischer Leitfaden für weniger Werbemails bei gleichzeitigem Zugriff auf Bestätigungen, Retouren, Garantien und Kontowiederherstellung.",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-free-trials",
 			title: "Temporäre E-Mail für Gratis-Testversionen nutzen, ohne Zugriff zu verlieren",
 			description:
@@ -280,6 +320,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ja: [
 		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "ネット通販で一時メールを使い、領収書や返品手続きを失わない方法",
+			description:
+				"販促メールを普段の受信箱から分離しながら、注文確認、返品、保証、アカウント復旧に必要な記録を守る実践ガイドです。",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-free-trials",
 			title: "無料トライアルで一時メールを使い、必要なアクセスを失わない方法",
 			description:
@@ -329,6 +377,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ko: [
+		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "온라인 쇼핑에서 임시 이메일을 쓰면서 영수증과 반품 권한을 지키는 방법",
+			description:
+				"광고 메일은 기본 받은편지함에서 분리하면서 주문 확인, 반품, 보증, 계정 복구 기록은 안전하게 유지하는 실용 가이드입니다.",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-free-trials",
 			title: "무료 체험에 임시 이메일을 쓰면서 중요한 접근 권한을 잃지 않는 방법",
@@ -380,6 +436,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ru: [
 		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "Как использовать временную почту для покупок и не потерять чеки или возвраты",
+			description:
+				"Практическое руководство: как отделить рекламу от основной почты и сохранить подтверждения, возвраты, гарантии и восстановление аккаунта.",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-free-trials",
 			title: "Как использовать временную почту для пробного периода и не потерять доступ",
 			description:
@@ -430,6 +494,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	pt: [
 		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "Como usar email temporário em compras online sem perder recibos ou devoluções",
+			description:
+				"Um guia prático para separar mensagens comerciais da caixa principal e preservar confirmações, devoluções, garantias e recuperação da conta.",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-free-trials",
 			title: "Como usar email temporário em testes grátis sem perder acesso importante",
 			description:
@@ -479,6 +551,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ar: [
+		{
+			slug: "use-temp-email-for-online-shopping",
+			title: "كيفية استخدام البريد المؤقت للتسوق دون فقدان الإيصالات أو حق الإرجاع",
+			description:
+				"دليل عملي لفصل رسائل التسويق عن صندوقك الأساسي مع الاحتفاظ بتأكيدات الطلب والإرجاع والضمان واسترداد الحساب.",
+			publishedAt: "2026-08-27",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-free-trials",
 			title: "كيف تستخدم بريداً مؤقتاً للتجارب المجانية من دون فقدان الوصول المهم",
