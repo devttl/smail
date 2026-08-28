@@ -28,6 +28,14 @@ export type BlogPostMeta = {
 const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	en: [
 		{
+			slug: "use-temp-email-for-downloads",
+			title: "How to Use Temporary Email for Downloads Without Losing Access or Privacy",
+			description:
+				"A practical safety workflow for using temporary email to download low-risk resources while protecting your inbox, files, access, and license records.",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "How to Use Temporary Email for Online Shopping Without Losing Receipts or Returns",
 			description:
@@ -85,6 +93,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	zh: [
+		{
+			slug: "use-temp-email-for-downloads",
+			title: "下载资料时如何使用临时邮箱，同时兼顾隐私、文件安全与后续访问",
+			description:
+				"一套使用临时邮箱下载低风险资源的安全流程：保护主邮箱，核验文件来源，并保留必要的访问、授权与凭证。",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "网购时如何使用临时邮箱，同时保留收据与退换货凭证",
@@ -144,6 +160,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	es: [
 		{
+			slug: "use-temp-email-for-downloads",
+			title: "Cómo usar correo temporal para descargas sin perder acceso ni privacidad",
+			description:
+				"Un proceso práctico para descargar recursos de bajo riesgo con correo temporal y proteger tu bandeja, archivos, acceso y licencias.",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "Cómo usar correo temporal al comprar en línea sin perder recibos ni devoluciones",
 			description:
@@ -201,6 +225,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	fr: [
+		{
+			slug: "use-temp-email-for-downloads",
+			title: "Utiliser un e-mail temporaire pour télécharger sans perdre accès ni confidentialité",
+			description:
+				"Une méthode pratique pour télécharger des ressources à faible risque avec un e-mail temporaire tout en protégeant boîte, fichiers, accès et licences.",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "Utiliser un e-mail temporaire pour les achats en ligne sans perdre reçus ni retours",
@@ -261,6 +293,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	de: [
 		{
+			slug: "use-temp-email-for-downloads",
+			title: "Temporäre E-Mail für Downloads nutzen, ohne Zugriff oder Privatsphäre zu verlieren",
+			description:
+				"Ein praktischer Ablauf für Downloads mit geringem Risiko: Hauptpostfach, Dateien, Zugriff und Lizenznachweise schützen.",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "Temporäre E-Mail beim Online-Einkauf nutzen, ohne Belege oder Retouren zu verlieren",
 			description:
@@ -320,6 +360,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ja: [
 		{
+			slug: "use-temp-email-for-downloads",
+			title: "アクセスとプライバシーを守る一時メールでの安全なダウンロード方法",
+			description:
+				"低リスクの資料を一時メールで受け取り、受信箱、ファイル、アクセス権、ライセンス記録を守る実践的な手順です。",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "ネット通販で一時メールを使い、領収書や返品手続きを失わない方法",
 			description:
@@ -377,6 +425,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ko: [
+		{
+			slug: "use-temp-email-for-downloads",
+			title: "접근 권한과 개인정보를 지키며 임시 이메일로 다운로드하는 방법",
+			description:
+				"저위험 리소스를 임시 이메일로 받을 때 받은편지함, 파일, 접근 권한, 라이선스 기록을 보호하는 실용적인 절차입니다.",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "온라인 쇼핑에서 임시 이메일을 쓰면서 영수증과 반품 권한을 지키는 방법",
@@ -436,6 +492,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ru: [
 		{
+			slug: "use-temp-email-for-downloads",
+			title: "Как использовать временную почту для загрузок, сохраняя доступ и конфиденциальность",
+			description:
+				"Практичный порядок безопасной загрузки материалов с низким риском: защита основного ящика, файлов, доступа и лицензий.",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "Как использовать временную почту для покупок и не потерять чеки или возвраты",
 			description:
@@ -494,6 +558,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	pt: [
 		{
+			slug: "use-temp-email-for-downloads",
+			title: "Como usar email temporário para downloads sem perder acesso ou privacidade",
+			description:
+				"Um processo prático para baixar recursos de baixo risco com email temporário e proteger caixa de entrada, arquivos, acesso e licenças.",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "Como usar email temporário em compras online sem perder recibos ou devoluções",
 			description:
@@ -551,6 +623,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ar: [
+		{
+			slug: "use-temp-email-for-downloads",
+			title: "استخدام بريد مؤقت للتنزيلات دون فقدان الوصول أو الخصوصية",
+			description:
+				"خطوات عملية لتنزيل موارد منخفضة المخاطر ببريد مؤقت مع حماية صندوقك وملفاتك ووصولك وسجلات الترخيص.",
+			publishedAt: "2026-08-28",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-online-shopping",
 			title: "كيفية استخدام البريد المؤقت للتسوق دون فقدان الإيصالات أو حق الإرجاع",

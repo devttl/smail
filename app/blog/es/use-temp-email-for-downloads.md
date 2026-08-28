@@ -1,0 +1,13 @@
+## Cómo usar correo temporal para descargas sin perder acceso ni privacidad
+
+Una guía, una plantilla o un paquete de muestras gratuito suele pedir una dirección antes de mostrar el enlace. Un correo temporal puede separar esa solicitud breve de tu bandeja principal y reducir mensajes comerciales posteriores. Pero no es un archivo privado ni una cuenta recuperable: en cleanorapi.com los mensajes se conservan hasta 24 horas y después se eliminan automáticamente.
+
+Antes de completar el formulario, clasifica el recurso. El correo temporal puede servir para una lista pública, un folleto o una muestra que podrías obtener de nuevo sin perder dinero, trabajo o derechos. Usa un alias o una dirección permanente para licencias, facturas, descargas de pago, cursos, software con proyectos guardados, suscripciones y documentos médicos, financieros, laborales o educativos. Si perder el enlace mañana tendría un coste real, la dirección también debe durar.
+
+Verifica el dominio exacto, el editor, el tipo de archivo y la finalidad de la descarga. Un formulario con correo no demuestra que un archivo sea seguro. Desconfía especialmente de enlaces acortados, anuncios y mensajes no solicitados. Si un sitio rechaza direcciones temporales, no cambies repetidamente de buzón para eludir su norma; decide si el recurso merece un alias o una cuenta duradera.
+
+Para una descarga de bajo riesgo, crea una dirección nueva, espera el mensaje esperado y abre únicamente el enlace necesario. Antes de introducir credenciales o instalar algo, comprueba el destino en el navegador. Una confirmación que pide tarjeta, código de recuperación, contraseña o documento de identidad es una señal para detenerte y volver al sitio oficial de forma directa.
+
+Guarda el archivo fuera del buzón antes de que termine el plazo y dale un nombre claro con editor y fecha. Conserva, cuando sea necesario, el dominio verificado, la versión, la fecha, los términos de licencia y la referencia de compra. No guardes contraseñas, números completos de tarjeta, códigos de un solo uso ni enlaces privados en notas sin protección.
+
+Inspecciona el archivo antes de abrirlo. Muestra las extensiones y desconfía de un supuesto documento que termine en `.exe`, `.scr` o `.bat`; analiza las descargas con la protección disponible y no desactives la seguridad ni habilites macros solo porque el archivo lo solicita. Si el recurso se vuelve importante, cambia el correo por un alias o dirección permanente mientras el buzón temporal siga disponible. El correo temporal reduce ruido; no convierte un archivo desconocido en seguro ni conserva una cuenta cuando el buzón desaparece.
