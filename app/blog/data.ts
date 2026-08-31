@@ -28,6 +28,14 @@ export type BlogPostMeta = {
 const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	en: [
 		{
+			slug: "verification-link-expired",
+			title: "Verification Link Expired? A Safe Step-by-Step Recovery Guide",
+			description:
+				"Learn why email verification links expire and follow a safe resend, browser-session, phishing-check, and account-recovery workflow without creating more problems.",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
+		{
 			slug: "temporary-email-for-forum-signups",
 			title: "Should You Use Temporary Email for Forum and Community Sign-Ups?",
 			description:
@@ -109,6 +117,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	zh: [
+		{
+			slug: "verification-link-expired",
+			title: "验证链接失效或过期怎么办？一套安全、可执行的恢复流程",
+			description:
+				"了解邮箱验证链接为何过期，并通过一次重发、会话检查、防钓鱼核验和账号迁移步骤安全恢复访问，避免反复操作扩大问题。",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
 		{
 			slug: "temporary-email-for-forum-signups",
 			title: "论坛和社区注册适合使用临时邮箱吗？",
@@ -192,6 +208,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	es: [
 		{
+			slug: "verification-link-expired",
+			title: "¿Enlace de verificación caducado? Guía segura para recuperar el acceso",
+			description:
+				"Descubre por qué caducan los enlaces de verificación y aplica un proceso seguro de reenvío, sesión, prevención de phishing y recuperación de cuenta.",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
+		{
 			slug: "temporary-email-for-forum-signups",
 			title: "¿Conviene usar correo temporal para registrarse en foros y comunidades?",
 			description:
@@ -273,6 +297,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	fr: [
+		{
+			slug: "verification-link-expired",
+			title: "Lien de vérification expiré : méthode sûre pour récupérer l'accès",
+			description:
+				"Comprenez pourquoi un lien de vérification expire et suivez une méthode sûre de renvoi, de contrôle de session, d'antiphishing et de récupération.",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
 		{
 			slug: "temporary-email-for-forum-signups",
 			title: "Faut-il utiliser un e-mail temporaire pour s'inscrire sur un forum ou dans une communauté ?",
@@ -357,6 +389,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	de: [
 		{
+			slug: "verification-link-expired",
+			title: "Verifizierungslink abgelaufen? Eine sichere Anleitung zur Wiederherstellung",
+			description:
+				"Erfahren Sie, warum Bestätigungslinks ablaufen, und nutzen Sie einen sicheren Ablauf für Neuversand, Browsersitzung, Phishing-Prüfung und Kontowiederherstellung.",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
+		{
 			slug: "temporary-email-for-forum-signups",
 			title: "Sollte man für Forum- und Community-Anmeldungen eine temporäre E-Mail verwenden?",
 			description:
@@ -440,6 +480,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ja: [
 		{
+			slug: "verification-link-expired",
+			title: "認証リンクの期限切れにどう対処する？安全な復旧手順",
+			description:
+				"認証リンクが失効する理由と、再送を一度に抑え、ブラウザーセッションやフィッシングを確認しながら安全にアカウントを復旧する手順を解説します。",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
+		{
 			slug: "temporary-email-for-forum-signups",
 			title: "フォーラムやコミュニティ登録に一時メールを使ってもよい？",
 			description:
@@ -521,6 +569,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ko: [
+		{
+			slug: "verification-link-expired",
+			title: "인증 링크가 만료되었을 때 안전하게 복구하는 방법",
+			description:
+				"인증 링크가 만료되는 이유와 한 번의 재전송, 브라우저 세션 확인, 피싱 점검, 장기 이메일 전환을 포함한 안전한 복구 절차를 알아보세요.",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
 		{
 			slug: "temporary-email-for-forum-signups",
 			title: "포럼과 커뮤니티 가입에 임시 이메일을 사용해도 될까요?",
@@ -604,6 +660,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ru: [
 		{
+			slug: "verification-link-expired",
+			title: "Срок действия ссылки подтверждения истёк: безопасный порядок восстановления",
+			description:
+				"Разберитесь, почему истекают ссылки подтверждения, и безопасно выполните повторную отправку, проверку сеанса, защиту от фишинга и восстановление аккаунта.",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
+		{
 			slug: "temporary-email-for-forum-signups",
 			title: "Стоит ли использовать временную почту для регистрации на форумах и в сообществах?",
 			description:
@@ -686,6 +750,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	pt: [
 		{
+			slug: "verification-link-expired",
+			title: "Link de verificação expirado? Guia seguro para recuperar o acesso",
+			description:
+				"Entenda por que links de verificação expiram e siga um processo seguro de reenvio, preservação da sessão, prevenção de phishing e recuperação da conta.",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
+		{
 			slug: "temporary-email-for-forum-signups",
 			title: "Vale a pena usar email temporário para cadastro em fóruns e comunidades?",
 			description:
@@ -767,6 +839,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ar: [
+		{
+			slug: "verification-link-expired",
+			title: "انتهت صلاحية رابط التحقق؟ خطوات آمنة لاستعادة الوصول",
+			description:
+				"تعرّف على أسباب انتهاء روابط التحقق واتبع خطوات آمنة لإعادة الإرسال والحفاظ على جلسة المتصفح وفحص التصيد واستعادة الحساب.",
+			publishedAt: "2026-09-02",
+			readingMinutes: 10,
+		},
 		{
 			slug: "temporary-email-for-forum-signups",
 			title: "هل يناسب البريد المؤقت التسجيل في المنتديات والمجتمعات؟",
