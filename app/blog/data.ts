@@ -28,6 +28,14 @@ export type BlogPostMeta = {
 const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	en: [
 		{
+			slug: "temporary-email-for-forum-signups",
+			title: "Should You Use Temporary Email for Forum and Community Sign-Ups?",
+			description:
+				"A practical decision guide for using temporary email in low-risk forums without losing account recovery, reputation, private messages, or community access.",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-newsletters",
 			title: "How to Use Temporary Email for Newsletters and Event Sign-Ups Responsibly",
 			description:
@@ -101,6 +109,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	zh: [
+		{
+			slug: "temporary-email-for-forum-signups",
+			title: "论坛和社区注册适合使用临时邮箱吗？",
+			description:
+				"一份面向低风险论坛注册的实用判断指南：在减少主邮箱暴露的同时，避免失去账号恢复、社区声誉、私信与长期访问能力。",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-newsletters",
 			title: "如何用临时邮箱订阅资讯和报名活动，同时不丢失重要通知",
@@ -176,6 +192,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	es: [
 		{
+			slug: "temporary-email-for-forum-signups",
+			title: "¿Conviene usar correo temporal para registrarse en foros y comunidades?",
+			description:
+				"Una guía práctica para usar correo temporal en foros de bajo riesgo sin perder recuperación, reputación, mensajes privados ni acceso a la comunidad.",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-newsletters",
 			title: "Cómo usar correo temporal para boletines y registros de eventos con responsabilidad",
 			description:
@@ -249,6 +273,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	fr: [
+		{
+			slug: "temporary-email-for-forum-signups",
+			title: "Faut-il utiliser un e-mail temporaire pour s'inscrire sur un forum ou dans une communauté ?",
+			description:
+				"Un guide pratique pour les forums à faible risque, sans perdre la récupération du compte, la réputation, les messages privés ni l'accès futur.",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-newsletters",
 			title: "Utiliser un e-mail temporaire pour les newsletters et inscriptions à des événements",
@@ -325,6 +357,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	de: [
 		{
+			slug: "temporary-email-for-forum-signups",
+			title: "Sollte man für Forum- und Community-Anmeldungen eine temporäre E-Mail verwenden?",
+			description:
+				"Ein praktischer Entscheidungsleitfaden für risikoarme Foren, ohne Kontowiederherstellung, Ansehen, private Nachrichten oder späteren Zugang zu verlieren.",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-newsletters",
 			title: "Temporäre E-Mail für Newsletter und Event-Anmeldungen verantwortungsvoll nutzen",
 			description:
@@ -400,6 +440,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ja: [
 		{
+			slug: "temporary-email-for-forum-signups",
+			title: "フォーラムやコミュニティ登録に一時メールを使ってもよい？",
+			description:
+				"低リスクのフォーラムで一時メールを使う際に、アカウント復旧、評価、非公開メッセージ、将来のアクセスを失わないための判断ガイドです。",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-newsletters",
 			title: "ニュースレター登録とイベント申込みで一時メールを適切に使う方法",
 			description:
@@ -473,6 +521,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ko: [
+		{
+			slug: "temporary-email-for-forum-signups",
+			title: "포럼과 커뮤니티 가입에 임시 이메일을 사용해도 될까요?",
+			description:
+				"저위험 포럼에서 임시 이메일을 사용할 때 계정 복구, 평판, 비공개 메시지, 장기 접근 권한을 잃지 않도록 돕는 실용 가이드입니다.",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-newsletters",
 			title: "뉴스레터와 이벤트 신청에 임시 이메일을 책임감 있게 사용하는 방법",
@@ -548,6 +604,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ru: [
 		{
+			slug: "temporary-email-for-forum-signups",
+			title: "Стоит ли использовать временную почту для регистрации на форумах и в сообществах?",
+			description:
+				"Практическое руководство по временной почте для малорискованных форумов без потери восстановления, репутации, личных сообщений и будущего доступа.",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-newsletters",
 			title: "Как ответственно использовать временную почту для рассылок и регистрации на мероприятия",
 			description:
@@ -622,6 +686,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	pt: [
 		{
+			slug: "temporary-email-for-forum-signups",
+			title: "Vale a pena usar email temporário para cadastro em fóruns e comunidades?",
+			description:
+				"Um guia prático para usar email temporário em fóruns de baixo risco sem perder recuperação da conta, reputação, mensagens privadas ou acesso futuro.",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-newsletters",
 			title: "Como usar email temporário para newsletters e inscrições em eventos com responsabilidade",
 			description:
@@ -695,6 +767,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ar: [
+		{
+			slug: "temporary-email-for-forum-signups",
+			title: "هل يناسب البريد المؤقت التسجيل في المنتديات والمجتمعات؟",
+			description:
+				"دليل عملي لاستخدام البريد المؤقت في المنتديات منخفضة المخاطر دون فقدان استعادة الحساب أو السمعة أو الرسائل الخاصة أو الوصول المستقبلي.",
+			publishedAt: "2026-09-01",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-newsletters",
 			title: "استخدام البريد المؤقت للنشرات والتسجيل في الفعاليات بمسؤولية",
