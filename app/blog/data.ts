@@ -28,6 +28,14 @@ export type BlogPostMeta = {
 const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	en: [
 		{
+			slug: "use-temp-email-for-newsletters",
+			title: "How to Use Temporary Email for Newsletters and Event Sign-Ups Responsibly",
+			description:
+				"A practical guide to separating optional newsletters and low-risk event mail from your primary inbox without losing important tickets, reminders, or privacy control.",
+			publishedAt: "2026-08-31",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-downloads",
 			title: "How to Use Temporary Email for Downloads Without Losing Access or Privacy",
 			description:
@@ -93,6 +101,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	zh: [
+		{
+			slug: "use-temp-email-for-newsletters",
+			title: "如何用临时邮箱订阅资讯和报名活动，同时不丢失重要通知",
+			description:
+				"一套管理可选资讯订阅和低风险活动报名的实用方法：减少主邮箱干扰，同时保留票据、提醒和隐私控制。",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-downloads",
 			title: "下载资料时如何使用临时邮箱，同时兼顾隐私、文件安全与后续访问",
@@ -160,6 +176,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	es: [
 		{
+			slug: "use-temp-email-for-newsletters",
+			title: "Cómo usar correo temporal para boletines y registros de eventos con responsabilidad",
+			description:
+				"Una guía práctica para separar boletines opcionales y correos de eventos de bajo riesgo sin perder avisos, entradas ni control de privacidad.",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-downloads",
 			title: "Cómo usar correo temporal para descargas sin perder acceso ni privacidad",
 			description:
@@ -225,6 +249,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	fr: [
+		{
+			slug: "use-temp-email-for-newsletters",
+			title: "Utiliser un e-mail temporaire pour les newsletters et inscriptions à des événements",
+			description:
+				"Un guide pratique pour séparer newsletters facultatives et messages d'événements à faible risque sans perdre rappels, billets ou contrôle de la confidentialité.",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-downloads",
 			title: "Utiliser un e-mail temporaire pour télécharger sans perdre accès ni confidentialité",
@@ -293,6 +325,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	de: [
 		{
+			slug: "use-temp-email-for-newsletters",
+			title: "Temporäre E-Mail für Newsletter und Event-Anmeldungen verantwortungsvoll nutzen",
+			description:
+				"Ein praktischer Leitfaden, um optionale Newsletter und risikoarme Event-Mails vom Hauptpostfach zu trennen, ohne wichtige Hinweise oder Datenschutzkontrolle zu verlieren.",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-downloads",
 			title: "Temporäre E-Mail für Downloads nutzen, ohne Zugriff oder Privatsphäre zu verlieren",
 			description:
@@ -360,6 +400,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ja: [
 		{
+			slug: "use-temp-email-for-newsletters",
+			title: "ニュースレター登録とイベント申込みで一時メールを適切に使う方法",
+			description:
+				"任意のニュースレターや低リスクのイベント連絡を主受信箱から分けつつ、重要な案内、チケット、プライバシー管理を失わないための実践ガイドです。",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-downloads",
 			title: "アクセスとプライバシーを守る一時メールでの安全なダウンロード方法",
 			description:
@@ -425,6 +473,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ko: [
+		{
+			slug: "use-temp-email-for-newsletters",
+			title: "뉴스레터와 이벤트 신청에 임시 이메일을 책임감 있게 사용하는 방법",
+			description:
+				"선택적 뉴스레터와 저위험 이벤트 메일을 기본 받은편지함에서 분리하면서도 중요한 안내, 티켓, 개인정보 통제권을 지키는 실용 가이드입니다.",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-downloads",
 			title: "접근 권한과 개인정보를 지키며 임시 이메일로 다운로드하는 방법",
@@ -492,6 +548,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ru: [
 		{
+			slug: "use-temp-email-for-newsletters",
+			title: "Как ответственно использовать временную почту для рассылок и регистрации на мероприятия",
+			description:
+				"Практическое руководство: как отделить необязательные рассылки и письма о событиях с низким риском, не теряя важных напоминаний, билетов и контроля над приватностью.",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-downloads",
 			title: "Как использовать временную почту для загрузок, сохраняя доступ и конфиденциальность",
 			description:
@@ -558,6 +622,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	pt: [
 		{
+			slug: "use-temp-email-for-newsletters",
+			title: "Como usar email temporário para newsletters e inscrições em eventos com responsabilidade",
+			description:
+				"Um guia prático para separar newsletters opcionais e emails de eventos de baixo risco sem perder avisos, ingressos ou controle de privacidade.",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
+		{
 			slug: "use-temp-email-for-downloads",
 			title: "Como usar email temporário para downloads sem perder acesso ou privacidade",
 			description:
@@ -623,6 +695,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ar: [
+		{
+			slug: "use-temp-email-for-newsletters",
+			title: "استخدام البريد المؤقت للنشرات والتسجيل في الفعاليات بمسؤولية",
+			description:
+				"دليل عملي لفصل النشرات الاختيارية ورسائل الفعاليات منخفضة المخاطر عن بريدك الأساسي دون فقدان التنبيهات أو التذاكر أو التحكم بالخصوصية.",
+			publishedAt: "2026-08-29",
+			readingMinutes: 10,
+		},
 		{
 			slug: "use-temp-email-for-downloads",
 			title: "استخدام بريد مؤقت للتنزيلات دون فقدان الوصول أو الخصوصية",
