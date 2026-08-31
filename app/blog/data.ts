@@ -28,6 +28,14 @@ export type BlogPostMeta = {
 const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	en: [
 		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "How to Reopen a Temporary Inbox Safely Without Losing Access",
+			description:
+				"Learn how direct inbox links, browser sessions, and 24-hour message retention work so you can reopen a temporary mailbox without exposing access or relying on deleted mail.",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
+		{
 			slug: "verification-link-expired",
 			title: "Verification Link Expired? A Safe Step-by-Step Recovery Guide",
 			description:
@@ -117,6 +125,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	zh: [
+		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "如何安全地重新打开临时收件箱，同时避免丢失访问权",
+			description:
+				"了解直达收件箱链接、浏览器会话和 24 小时邮件保留机制，安全地重新打开临时邮箱，同时避免泄露访问权或误以为已删除邮件可以恢复。",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
 		{
 			slug: "verification-link-expired",
 			title: "验证链接失效或过期怎么办？一套安全、可执行的恢复流程",
@@ -208,6 +224,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	es: [
 		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "Cómo volver a abrir un buzón temporal de forma segura sin perder el acceso",
+			description:
+				"Descubre cómo funcionan los enlaces directos, las sesiones del navegador y la retención de 24 horas para reabrir un buzón temporal sin exponer el acceso ni confiar en mensajes eliminados.",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
+		{
 			slug: "verification-link-expired",
 			title: "¿Enlace de verificación caducado? Guía segura para recuperar el acceso",
 			description:
@@ -297,6 +321,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	fr: [
+		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "Comment rouvrir une boîte temporaire en sécurité sans perdre l’accès",
+			description:
+				"Comprenez les liens directs, les sessions du navigateur et la conservation de 24 heures afin de rouvrir une boîte temporaire sans exposer l’accès ni compter sur des messages supprimés.",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
 		{
 			slug: "verification-link-expired",
 			title: "Lien de vérification expiré : méthode sûre pour récupérer l'accès",
@@ -389,6 +421,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	de: [
 		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "Ein temporäres Postfach sicher erneut öffnen, ohne den Zugriff zu verlieren",
+			description:
+				"Erfahren Sie, wie Direktlinks, Browser-Sitzungen und die 24-Stunden-Aufbewahrung funktionieren, um ein temporäres Postfach ohne Zugriffsleck oder falsche Wiederherstellungserwartung erneut zu öffnen.",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
+		{
 			slug: "verification-link-expired",
 			title: "Verifizierungslink abgelaufen? Eine sichere Anleitung zur Wiederherstellung",
 			description:
@@ -480,6 +520,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ja: [
 		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "アクセスを失わずに一時受信箱を安全に再度開く方法",
+			description:
+				"ダイレクトリンク、ブラウザーセッション、24時間のメール保持がどう機能するかを理解し、アクセスを漏らしたり削除済みメールの復元を期待したりせずに一時受信箱を開き直す方法を解説します。",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
+		{
 			slug: "verification-link-expired",
 			title: "認証リンクの期限切れにどう対処する？安全な復旧手順",
 			description:
@@ -569,6 +617,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ko: [
+		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "접근 권한을 잃지 않고 임시 받은편지함을 안전하게 다시 여는 방법",
+			description:
+				"직접 받은편지함 링크, 브라우저 세션, 24시간 메일 보관 방식을 이해하고 접근 정보를 노출하거나 삭제된 메일 복구를 기대하지 않으면서 임시 메일함을 다시 여는 방법을 안내합니다.",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
 		{
 			slug: "verification-link-expired",
 			title: "인증 링크가 만료되었을 때 안전하게 복구하는 방법",
@@ -660,6 +716,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	ru: [
 		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "Как безопасно снова открыть временный ящик и не потерять доступ",
+			description:
+				"Разберитесь в прямых ссылках, браузерных сессиях и 24-часовом хранении, чтобы повторно открыть временную почту без раскрытия доступа и ложных ожиданий восстановления удалённых писем.",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
+		{
 			slug: "verification-link-expired",
 			title: "Срок действия ссылки подтверждения истёк: безопасный порядок восстановления",
 			description:
@@ -750,6 +814,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 	],
 	pt: [
 		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "Como reabrir uma caixa temporária com segurança sem perder o acesso",
+			description:
+				"Entenda links diretos, sessões do navegador e retenção de 24 horas para reabrir uma caixa temporária sem expor o acesso nem depender de mensagens já excluídas.",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
+		{
 			slug: "verification-link-expired",
 			title: "Link de verificação expirado? Guia seguro para recuperar o acesso",
 			description:
@@ -839,6 +911,14 @@ const BLOG_POSTS: Record<BlogLocale, BlogPostMeta[]> = {
 		},
 	],
 	ar: [
+		{
+			slug: "reopen-temporary-inbox-safely",
+			title: "كيفية إعادة فتح صندوق بريد مؤقت بأمان من دون فقدان الوصول",
+			description:
+				"تعرّف إلى الروابط المباشرة وجلسات المتصفح والاحتفاظ بالرسائل لمدة 24 ساعة لإعادة فتح صندوق مؤقت من دون كشف الوصول أو توقع استعادة الرسائل المحذوفة.",
+			publishedAt: "2026-09-03",
+			readingMinutes: 10,
+		},
 		{
 			slug: "verification-link-expired",
 			title: "انتهت صلاحية رابط التحقق؟ خطوات آمنة لاستعادة الوصول",
